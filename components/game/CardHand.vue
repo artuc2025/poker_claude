@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Card } from '@/types/game'
-import PlayingCard from './PlayingCard.vue'
+import PlayingCard from '@/components/game/PlayingCard.vue'
 
 const props = withDefaults(defineProps<{
   cards: Card[]
@@ -57,9 +57,7 @@ const faceDown = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-$card-sm-w: 22px;
-$card-sm-h: 30px;
-$fan-gap:   4px;
+$fan-gap: 4px;
 
 .card-hand {
   position: relative;
@@ -83,8 +81,8 @@ $fan-gap:   4px;
 
   // ---- Placeholder (no cards yet) ----
   &__placeholder {
-    width: $card-sm-w;
-    height: $card-sm-h;
+    width: $card-sm-width;
+    height: $card-sm-height;
     border-radius: 3px;
     border: 2px dashed rgba(255, 255, 255, 0.08);
     background: rgba(0, 0, 0, 0.15);

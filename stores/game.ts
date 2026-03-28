@@ -38,6 +38,7 @@ export const useGameStore = defineStore('game', {
       return state.seats.filter((s): s is SeatState => s !== null)
     },
 
+    // Used by P2-T12 Game Engine and P2-T16 Hand Evaluator
     flopCards(state): Card[] {
       return state.communityCards.slice(0, 3)
     },

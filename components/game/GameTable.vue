@@ -4,8 +4,9 @@ import type { SeatState } from "@/types/game";
 import { useGameStore } from "@/stores/game";
 import { MOCK_HERO, MOCK_PLAYERS } from "@/data/mock/players";
 import { shuffleDeck, buildDeck } from "@/data/mock/cards";
-import PlayerSeat from "./PlayerSeat.vue";
-import CommunityCards from "./CommunityCards.vue";
+import { formatStack } from "@/utils/format";
+import PlayerSeat from "@/components/game/PlayerSeat.vue";
+import CommunityCards from "@/components/game/CommunityCards.vue";
 
 const props = defineProps<{
   table: Table;
@@ -36,9 +37,6 @@ function getSeatName(seat: SeatState): string {
   return PLAYER_NAME_MAP[seat.playerId] ?? "Unknown";
 }
 
-function formatStack(amount: number): string {
-  return amount >= 1000 ? `$${(amount / 1000).toFixed(1)}k` : `$${amount}`;
-}
 
 onMounted(() => {
   if (gameStore.seats.some((s) => s !== null)) return;
@@ -76,6 +74,7 @@ onMounted(() => {
     }
   }
 
+  // TODO: remove test deal — replaced by P2-T12 Game Engine
   // Deal 2 hole cards to each occupied seat from a shuffled deck
   const deck = shuffleDeck(buildDeck());
   let cardIdx = 0;

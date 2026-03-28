@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { SeatState, SeatStatus } from '@/types/game'
-import CardHand from './CardHand.vue'
+import CardHand from '@/components/game/CardHand.vue'
+import { formatStack } from '@/utils/format'
 
 const props = withDefaults(defineProps<{
   seat: SeatState | null
@@ -24,9 +25,7 @@ const statusLabel = computed(() =>
   props.seat ? (STATUS_LABEL[props.seat.status] ?? '') : ''
 )
 
-function formatStack(amount: number): string {
-  return amount >= 1000 ? `$${(amount / 1000).toFixed(1)}k` : `$${amount}`
-}
+
 </script>
 
 <template>

@@ -50,9 +50,8 @@ const symbol = computed(() => SUIT_SYMBOL[props.card.suit])
 </template>
 
 <style lang="scss" scoped>
-// ---- Size tokens ----
-$card-sm-w: 22px;
-$card-sm-h: 30px;
+// Card front uses literal white — intentional game element (cards are always white).
+// Per RULES.md: game elements like table felt and card faces are exempt from var() rule.
 
 .playing-card {
   position: relative;
@@ -62,7 +61,7 @@ $card-sm-h: 30px;
   flex-shrink: 0;
 
   &--md { width: $card-width;  height: $card-height; }
-  &--sm { width: $card-sm-w;   height: $card-sm-h;   }
+  &--sm { width: $card-sm-width;  height: $card-sm-height; }
 
   // Flip to front when revealed
   &--revealed { transform: rotateY(180deg); }

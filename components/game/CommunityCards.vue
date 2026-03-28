@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useGameStore } from '@/stores/game'
-import PlayingCard from './PlayingCard.vue'
+import PlayingCard from '@/components/game/PlayingCard.vue'
 
 const gameStore = useGameStore()
 
@@ -9,7 +9,8 @@ const gameStore = useGameStore()
 const SLIDE_MS  = 260  // must match CSS transition duration
 const STAGGER_MS = 160  // per card within a batch
 
-const revealed = ref<boolean[]>(Array(5).fill(false))
+const revealed  = ref<boolean[]>(Array(5).fill(false))
+const timers: ReturnType<typeof setTimeout>[] = []
 
 watch(
   () => gameStore.communityCards.length,
@@ -22,11 +23,13 @@ watch(
       const batchIdx  = i - oldLen
       // Wait for this card's slide to finish, then flip face-up
       const flipDelay = batchIdx * STAGGER_MS + SLIDE_MS + 60
-      setTimeout(() => { revealed.value[i] = true }, flipDelay)
+      timers.push(setTimeout(() => { revealed.value[i] = true }, flipDelay))
     }
   },
   { immediate: true },
 )
+
+onUnmounted(() => timers.forEach(clearTimeout))
 
 // CSS stagger delay for slide-in: flop (0-2) uses position within batch,
 // turn/river appear alone so delay = 0
