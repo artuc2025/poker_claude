@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onUnmounted, watch } from 'vue'
 
 // 1. Props & Emits
 const props = withDefaults(defineProps<{
@@ -16,6 +16,8 @@ const emit = defineEmits<{
   'update:modelValue': [value: boolean]
   close: []
 }>()
+
+const titleId = `modal-title-${Math.random().toString(36).slice(2, 7)}`
 
 // 2. Methods
 function close() {
@@ -37,8 +39,9 @@ function onKeydown(event: KeyboardEvent) {
 }
 
 // 3. Lifecycle
-onMounted(() => {
-  document.addEventListener('keydown', onKeydown)
+watch(() => props.modelValue, (open) => {
+  if (open) document.addEventListener('keydown', onKeydown)
+  else document.removeEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
@@ -54,12 +57,13 @@ onUnmounted(() => {
         class="base-modal"
         role="dialog"
         aria-modal="true"
+        :aria-labelledby="title ? titleId : undefined"
         @click="onBackdropClick"
       >
         <div :class="['base-modal__dialog', `base-modal__dialog--${size}`]">
           <div v-if="title || closable || $slots.header" class="base-modal__header">
             <slot name="header">
-              <span class="base-modal__title">{{ title }}</span>
+              <span :id="title ? titleId : undefined" class="base-modal__title">{{ title }}</span>
             </slot>
             <button
               v-if="closable"
@@ -147,9 +151,7 @@ onUnmounted(() => {
       color: $color-text-primary;
     }
 
-    &:focus-visible {
-      @include focus-ring;
-    }
+    @include focus-ring;
   }
 
   &__body {

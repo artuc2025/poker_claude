@@ -63,7 +63,7 @@ function onImgError() {
     <div
       v-else
       class="base-avatar__fallback"
-      :style="{ background: avatarColor }"
+      :style="{ '--avatar-bg': avatarColor }"
       aria-hidden="true"
     >
       {{ initials }}
@@ -111,6 +111,7 @@ function onImgError() {
     @include flex-center;
     width: 100%;
     height: 100%;
+    background: var(--avatar-bg);
     font-family: $font-body;
     font-weight: 700;
     color: #fff;

@@ -40,6 +40,7 @@ function toggle() {
     <!-- Toggle button -->
     <button class="app-sidebar__toggle" :aria-label="collapsed ? 'Развернуть' : 'Свернуть'" @click="toggle">
       <svg
+        class="app-sidebar__toggle-icon"
         width="16"
         height="16"
         viewBox="0 0 24 24"
@@ -47,7 +48,6 @@ function toggle() {
         stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
-        :style="{ transform: collapsed ? 'rotate(180deg)' : 'none', transition: 'transform 0.25s ease' }"
       >
         <path d="M15 18l-6-6 6-6" />
       </svg>
@@ -140,6 +140,14 @@ $sidebar-collapsed-width: 52px;
       background: rgba(255, 255, 255, 0.06);
       color: $color-text-primary;
     }
+  }
+
+  &__toggle-icon {
+    transition: transform $transition-base;
+  }
+
+  &--collapsed &__toggle-icon {
+    transform: rotate(180deg);
   }
 
   // --- Nav links ---

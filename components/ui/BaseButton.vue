@@ -75,9 +75,7 @@ function handleClick(event: MouseEvent) {
               border-color $transition-fast, box-shadow $transition-fast,
               transform $transition-fast;
 
-  &:focus-visible {
-    @include focus-ring;
-  }
+  @include focus-ring;
 
   // --- Sizes ---
   &--sm {
@@ -104,7 +102,7 @@ function handleClick(event: MouseEvent) {
   // --- Variants ---
   &--primary {
     background: $color-accent-gold;
-    color: #0d1117;
+    color: $color-text-inverse;
     border-color: $color-accent-gold;
 
     &:hover:not(.base-button--disabled):not(.base-button--loading) {

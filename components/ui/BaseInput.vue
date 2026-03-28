@@ -16,17 +16,19 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
+  'update:modelValue': [value: string | number]
   blur: [event: FocusEvent]
   focus: [event: FocusEvent]
 }>()
 
-// 2. Reactive state
+// 2. Composables
+const slots = useSlots()
+
+// 3. Reactive state
 const isFocused = ref(false)
+const inputId = `input-${Math.random().toString(36).slice(2, 9)}`
 
-// 3. Computed
-const inputId = computed(() => `input-${Math.random().toString(36).slice(2, 9)}`)
-
+// 4. Computed
 const wrapperClasses = computed(() => [
   'base-input',
   `base-input--${props.size}`,
@@ -39,13 +41,11 @@ const wrapperClasses = computed(() => [
   },
 ])
 
-// 4. Slots
-const slots = useSlots()
-
 // 5. Methods
 function onInput(event: Event) {
   const target = event.target as HTMLInputElement
-  emit('update:modelValue', target.value)
+  const value: string | number = props.type === 'number' ? Number(target.value) : target.value
+  emit('update:modelValue', value)
 }
 
 function onFocus(event: FocusEvent) {

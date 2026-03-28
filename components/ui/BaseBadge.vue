@@ -87,11 +87,12 @@ $badge-colors: (
   }
 
   // --- Outline modifier ---
+  // Double-class specificity (.base-badge--outline.base-badge--{name}) overrides
+  // the single-class solid variant backgrounds without needing !important
   &--outline {
-    background: transparent !important;
-
     @each $name, $color in $badge-colors {
       &.base-badge--#{$name} {
+        background: transparent;
         border: 1px solid $color;
         color: $color;
       }
