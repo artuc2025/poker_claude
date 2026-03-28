@@ -229,3 +229,22 @@
   - SCSS переменные `$table-width`, `$table-height`, `$table-border-width` используются напрямую (auto-injected)
 - **Known issues**: нет
 - **Next recommended task**: P2-T02 (PlayerSeat: аватар, ник, стек, статус)
+
+---
+
+### P2-T02: PlayerSeat — аватар, ник, стек, статус
+- **Date**: 2026-03-29
+- **Phase**: 2
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/game/PlayerSeat.vue` — компонент позиции игрока: BaseAvatar (sm), имя, стек, 2 заглушки карт-рубашек, dealer badge, status overlay (FOLD/ALL IN/AWAY), timer-bar для активного игрока
+  - `components/game/GameTable.vue` — inline-плашки заменены на `<PlayerSeat>`, добавлен `.game-table__seat-pos` wrapper для позиционирования, удалены 60+ строк inline-стилей
+- **Decisions made**:
+  - PlayerSeat получает `playerName: string` как prop — разрешение playerId→name остаётся в GameTable (данные-слой)
+  - `isDealer` и `isActive` — отдельные boolean props (не вычисляются внутри) — PlayerSeat не знает о gameStore
+  - Карточки-заглушки — тёмно-синие прямоугольники 22×30px; будут заменены в P2-T04 на CardHand
+  - `timer-bar` — CSS анимация pulse на зелёной полоске снизу при активном ходе; полноценный таймер в P2-T11
+  - Состояние `--allin` — красная рамка (отличается от `--folded` opacity); `--hero + --active` — active побеждает (зелёный)
+  - Все цвета bg/text/border/shadow через `var(--color-*)` согласно новому правилу в RULES.md
+- **Known issues**: нет
+- **Next recommended task**: P2-T03 (Card system: SVG карты + CardFlip анимация)

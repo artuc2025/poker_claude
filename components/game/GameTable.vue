@@ -1,73 +1,76 @@
 <script setup lang="ts">
-import type { Table } from '@/types/table'
-import type { SeatState } from '@/types/game'
-import { useGameStore } from '@/stores/game'
-import { MOCK_HERO, MOCK_PLAYERS } from '@/data/mock/players'
+import type { Table } from "@/types/table";
+import type { SeatState } from "@/types/game";
+import { useGameStore } from "@/stores/game";
+import { MOCK_HERO, MOCK_PLAYERS } from "@/data/mock/players";
+import PlayerSeat from "./PlayerSeat.vue";
 
 const props = defineProps<{
-  table: Table
-}>()
+  table: Table;
+}>();
 
-const gameStore = useGameStore()
+const gameStore = useGameStore();
 
 // [left%, top%] center anchor for each seat. Seat 6 = HERO (bottom center).
+// Positions computed on the table ellipse (900×540px) at 40° increments,
+// k=0.88 inset. Perfectly symmetric left↔right.
 const SEAT_POSITIONS: readonly [number, number][] = [
-  [4, 46],   // 0: left mid
-  [24, 7],   // 1: top-left
-  [50, 2],   // 2: top center
-  [76, 7],   // 3: top-right
-  [96, 46],  // 4: right mid
-  [96, 70],  // 5: right lower
+  [12, 28],  // 0: upper-left
+  [35,  9],  // 1: top-left
+  [65,  9],  // 2: top-right
+  [88, 28],  // 3: upper-right
+  [93, 58],  // 4: right
+  [78, 84],  // 5: bottom-right
   [50, 94],  // 6: bottom center — HERO
-  [27, 88],  // 7: bottom-left
-  [4, 70],   // 8: left lower
+  [22, 84],  // 7: bottom-left
+  [ 7, 58],  // 8: left
 ]
 
 const PLAYER_NAME_MAP: Record<string, string> = Object.fromEntries(
-  [MOCK_HERO, ...MOCK_PLAYERS].map((p) => [p.id, p.name])
-)
+  [MOCK_HERO, ...MOCK_PLAYERS].map((p) => [p.id, p.name]),
+);
 
 function getSeatName(seat: SeatState): string {
-  return PLAYER_NAME_MAP[seat.playerId] ?? 'Unknown'
+  return PLAYER_NAME_MAP[seat.playerId] ?? "Unknown";
 }
 
 function formatStack(amount: number): string {
-  return amount >= 1000 ? `$${(amount / 1000).toFixed(1)}k` : `$${amount}`
+  return amount >= 1000 ? `$${(amount / 1000).toFixed(1)}k` : `$${amount}`;
 }
 
 onMounted(() => {
-  if (gameStore.seats.some((s) => s !== null)) return
+  if (gameStore.seats.some((s) => s !== null)) return;
 
-  const maxPlayers = props.table.config.maxPlayers
-  const buyIn = props.table.config.stakes.bigBlind * 100
-  const opponents = MOCK_PLAYERS.slice(0, maxPlayers - 1)
-  const newSeats: (SeatState | null)[] = Array(9).fill(null)
+  const maxPlayers = props.table.config.maxPlayers;
+  const buyIn = props.table.config.stakes.bigBlind * 100;
+  const opponents = MOCK_PLAYERS.slice(0, maxPlayers - 1);
+  const newSeats: (SeatState | null)[] = Array(9).fill(null);
 
   newSeats[6] = {
     playerId: MOCK_HERO.id,
     seatIndex: 6,
     stackSize: Math.min(MOCK_HERO.bankroll, buyIn),
     currentBet: 0,
-    status: 'active',
+    status: "active",
     holeCards: [],
     isHero: true,
-  }
+  };
 
-  let opponentIdx = 0
+  let opponentIdx = 0;
   for (let i = 0; i < 9; i++) {
-    if (i === 6) continue
-    const player = opponents[opponentIdx]
+    if (i === 6) continue;
+    const player = opponents[opponentIdx];
     if (player) {
       newSeats[i] = {
         playerId: player.id,
         seatIndex: i,
         stackSize: Math.min(player.bankroll, buyIn),
         currentBet: 0,
-        status: 'active',
+        status: "active",
         holeCards: [],
         isHero: false,
-      }
-      opponentIdx++
+      };
+      opponentIdx++;
     }
   }
 
@@ -75,11 +78,11 @@ onMounted(() => {
     id: props.table.id,
     smallBlind: props.table.config.stakes.smallBlind,
     bigBlind: props.table.config.stakes.bigBlind,
-    phase: 'waiting',
+    phase: "waiting",
     dealerSeatIndex: 1,
     seats: newSeats,
-  })
-})
+  });
+});
 </script>
 
 <template>
@@ -92,7 +95,9 @@ onMounted(() => {
           </div>
           <div class="game-table__pot">
             <span class="game-table__pot-label">POT</span>
-            <span class="game-table__pot-amount">{{ formatStack(gameStore.totalPot) }}</span>
+            <span class="game-table__pot-amount">{{
+              formatStack(gameStore.totalPot)
+            }}</span>
           </div>
         </div>
       </div>
@@ -102,44 +107,35 @@ onMounted(() => {
       v-for="(pos, index) in SEAT_POSITIONS"
       :key="index"
       :style="{ left: `${pos[0]}%`, top: `${pos[1]}%` }"
-      :class="[
-        'game-table__seat',
-        {
-          'game-table__seat--occupied': gameStore.seats[index] !== null,
-          'game-table__seat--hero': gameStore.seats[index]?.isHero,
-          'game-table__seat--active': gameStore.currentSeatIndex === index,
-          'game-table__seat--folded': gameStore.seats[index]?.status === 'folded',
-        },
-      ]"
+      class="game-table__seat-pos"
     >
-      <template v-if="gameStore.seats[index]">
-        <span class="game-table__seat-name">{{ getSeatName(gameStore.seats[index]!) }}</span>
-        <span class="game-table__seat-stack">{{ formatStack(gameStore.seats[index]!.stackSize) }}</span>
-        <span v-if="gameStore.dealerSeatIndex === index" class="game-table__dealer-btn">D</span>
-      </template>
-      <template v-else>
-        <span class="game-table__seat-empty">{{ index + 1 }}</span>
-      </template>
+      <PlayerSeat
+        :seat="gameStore.seats[index] ?? null"
+        :seat-index="index"
+        :player-name="
+          gameStore.seats[index] ? getSeatName(gameStore.seats[index]!) : ''
+        "
+        :is-dealer="gameStore.dealerSeatIndex === index"
+        :is-active="gameStore.currentSeatIndex === index"
+      />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-$seat-w: 110px;
-$seat-h: 68px;
-
 .game-table {
   position: relative;
   width: $table-width;
   height: $table-height;
-  max-width: 100%;
 
   &__rail {
     position: absolute;
     inset: 0;
     border-radius: 50%;
     background: linear-gradient(160deg, #5c3a1e 0%, #3d2200 50%, #2a1800 100%);
-    box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.06), var(--shadow-xl);
+    box-shadow:
+      inset 0 0 0 3px rgba(255, 255, 255, 0.06),
+      var(--shadow-xl);
     padding: $table-border-width;
   }
 
@@ -157,7 +153,7 @@ $seat-h: 68px;
     position: relative;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       inset: 8px;
       border-radius: 50%;
@@ -207,69 +203,10 @@ $seat-h: 68px;
     letter-spacing: 0.05em;
   }
 
-  &__seat {
+  &__seat-pos {
     position: absolute;
     transform: translate(-50%, -50%);
-    width: $seat-w;
-    height: $seat-h;
-    border-radius: $radius-lg;
-    background: var(--color-bg-secondary);
-    border: 2px solid var(--color-border-primary);
-    @include flex-center;
-    flex-direction: column;
-    gap: $spacing-1;
     z-index: $z-index-raised;
-    transition: border-color $transition-base, box-shadow $transition-base, opacity $transition-base;
-
-    &--hero {
-      border-color: $color-accent-gold;
-      box-shadow: 0 0 16px rgba(240, 192, 64, 0.3);
-    }
-
-    &--active {
-      border-color: $color-accent-green;
-      box-shadow: 0 0 16px rgba(46, 204, 113, 0.4);
-    }
-
-    &--folded {
-      opacity: 0.4;
-    }
-  }
-
-  &__seat-name {
-    font-size: $font-size-xs;
-    font-weight: $font-weight-semibold;
-    color: var(--color-text-primary);
-    @include text-ellipsis;
-    max-width: 94px;
-  }
-
-  &__seat-stack {
-    font-family: $font-mono;
-    font-size: $font-size-xs;
-    color: $color-accent-gold;
-  }
-
-  &__seat-empty {
-    font-family: $font-display;
-    font-size: $font-size-xl;
-    color: var(--color-text-muted);
-  }
-
-  &__dealer-btn {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    width: 22px;
-    height: 22px;
-    border-radius: $radius-full;
-    background: $color-accent-gold;
-    color: var(--color-text-inverse);
-    font-family: $font-display;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-bold;
-    @include flex-center;
-    box-shadow: var(--shadow-sm);
   }
 }
 </style>

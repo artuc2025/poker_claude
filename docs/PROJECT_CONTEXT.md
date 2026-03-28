@@ -44,7 +44,10 @@
 
 ### Current Task
 <!-- Формат: - [ ] TASK_ID: описание -->
-- [ ] P2-T02: PlayerSeat — аватар, ник, стек, статус
+- [x] P2-T02: PlayerSeat — аватар, ник, стек, статус (2026-03-29)
+
+### Current Task
+- [ ] P2-T03: Card system — SVG карты + CardFlip анимация
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->
