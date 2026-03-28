@@ -87,3 +87,22 @@
   - `color-mix()` используется для hover-эффектов (уже установлено в P1-T01)
 - **Known issues**: нет
 - **Next recommended task**: P1-T04 (BaseToast, BaseBadge, BaseLoader, BaseTooltip)
+
+---
+
+### P1-T04: UI Kit — BaseToast, BaseBadge, BaseLoader, BaseTooltip
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/ui/BaseToast.vue` — success/error/warning/info типы, progress bar с таймером, enter/exit анимация, emit close по id
+  - `components/ui/BaseBadge.vue` — 6 вариантов цвета, solid/outline режимы, dot-режим (без текста), размеры sm/md
+  - `components/ui/BaseLoader.vue` — 3 варианта: spinner (css rotate), dots (bounce анимация), skeleton (shimmer gradient); размеры sm/md/lg; цвета gold/white/muted
+  - `components/ui/BaseTooltip.vue` — чисто CSS позиционирование, 4 placement (top/bottom/left/right), стрелка через ::after, hover + focus-within триггер, prop disabled
+- **Decisions made**:
+  - BaseToast не управляет своим стеком — это задача stores/ui.ts (ToastContainer будет рендерить массив toasts[])
+  - BaseTooltip использует CSS-only позиционирование (без JS/Popper) — достаточно для покерного UI, нет overflow-проблем на столе
+  - BaseLoader skeleton использует `background-size: 200%` shimmer — совместимо без доп. зависимостей
+  - BaseBadge использует `!important` только в outline-модификаторе для переопределения background варианта — единственный допустимый случай по RULES.md
+- **Known issues**: нет
+- **Next recommended task**: P1-T05 (Layout: AppHeader, AppSidebar, AppFooter)
