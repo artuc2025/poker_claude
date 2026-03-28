@@ -5,7 +5,7 @@ import { useGameStore } from "@/stores/game";
 import { MOCK_HERO, MOCK_PLAYERS } from "@/data/mock/players";
 import { shuffleDeck, buildDeck } from "@/data/mock/cards";
 import PlayerSeat from "./PlayerSeat.vue";
-import PlayingCard from "./PlayingCard.vue";
+import CommunityCards from "./CommunityCards.vue";
 
 const props = defineProps<{
   table: Table;
@@ -105,16 +105,7 @@ onMounted(() => {
     <div class="game-table__rail">
       <div class="game-table__felt">
         <div class="game-table__center">
-          <div class="game-table__community">
-            <template v-for="n in 5" :key="n">
-              <PlayingCard
-                v-if="gameStore.communityCards[n - 1]"
-                :card="gameStore.communityCards[n - 1]!"
-                size="md"
-              />
-              <div v-else class="game-table__card-slot" />
-            </template>
-          </div>
+          <CommunityCards />
           <div class="game-table__pot">
             <span class="game-table__pot-label">POT</span>
             <span class="game-table__pot-amount">{{
@@ -190,20 +181,6 @@ onMounted(() => {
     gap: $spacing-3;
     position: relative;
     z-index: $z-index-raised;
-  }
-
-  &__community {
-    display: flex;
-    gap: $spacing-2;
-    align-items: center;
-  }
-
-  &__card-slot {
-    width: $card-width;
-    height: $card-height;
-    border-radius: $card-radius;
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.15);
   }
 
   &__pot {
