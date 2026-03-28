@@ -1,5 +1,72 @@
 # 📏 Rules — PokerArena Code Conventions
 
+## Theming — ОБЯЗАТЕЛЬНО для каждого компонента
+
+Проект поддерживает **dark** и **light** режимы через `data-theme` на `<html>`.
+CSS custom properties (`var()`) переключаются автоматически — SCSS-переменные (`$`) нет.
+
+### Правило: какой синтаксис использовать
+
+| Категория                          | Синтаксис                       | Пример                              |
+|------------------------------------|----------------------------------|--------------------------------------|
+| Фон UI-элементов (panel, card)     | `var(--color-bg-*)` ✅           | `background: var(--color-bg-secondary)` |
+| Текст                              | `var(--color-text-*)` ✅         | `color: var(--color-text-primary)`   |
+| Границы                            | `var(--color-border-*)` ✅       | `border-color: var(--color-border-primary)` |
+| Тени                               | `var(--shadow-*)` ✅             | `box-shadow: var(--shadow-md)`       |
+| Акцент (gold/red/green/blue)       | `$color-accent-*` или `var()` ✅ | одинаковы в обоих темах              |
+| Цвета стола/сукна                  | `$color-bg-table*` ✅            | никогда не меняются — это игровая зона |
+| Цвета фишек / мастей               | `$color-chip-*`, `$color-suit-*` ✅ | игровые токены, тема не влияет    |
+| Спейсинг / радиус / шрифты        | `$spacing-*`, `$radius-*`  ✅   | compile-time, тема не влияет         |
+
+### Чеклист при создании компонента
+
+Перед тем как закоммитить стили, пройди по каждому CSS-свойству:
+
+- [ ] `background` / `background-color` → используй `var(--color-bg-*)`
+- [ ] `color` (текст) → используй `var(--color-text-*)`
+- [ ] `border-color` / `border` с цветом → используй `var(--color-border-*)`
+- [ ] `box-shadow` → используй `var(--shadow-*)`
+- [ ] `fill` / `stroke` на SVG-иконках → используй `currentColor` + `var(--color-text-*)`
+
+### Пример — правильно vs неправильно
+
+```scss
+// ❌ WRONG — использует SCSS переменную, не меняется при смене темы
+.player-seat {
+  background: $color-bg-secondary;    // hardcoded dark
+  color: $color-text-primary;         // hardcoded light text
+  box-shadow: $shadow-md;             // hardcoded dark shadow
+}
+
+// ✅ CORRECT — реагирует на data-theme
+.player-seat {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-md);
+}
+
+// ✅ CORRECT — игровые цвета, тема не влияет
+.card-slot {
+  background: $color-bg-table;        // всегда зелёный
+  color: $color-accent-gold;          // всегда золотой
+}
+```
+
+### Доступные CSS custom properties
+
+Все определены в `assets/scss/main.scss`:
+
+```
+Фон:      --color-bg-primary | --color-bg-secondary | --color-bg-tertiary | --color-bg-overlay
+Текст:    --color-text-primary | --color-text-secondary | --color-text-muted | --color-text-inverse
+Бордеры: --color-border-primary | --color-border-secondary
+Тени:     --shadow-sm | --shadow-md | --shadow-lg | --shadow-xl
+Акценты:  --color-accent-gold | --color-accent-gold-dim | --color-accent-red | --color-accent-green | --color-accent-blue | --color-accent-purple
+Стол:     --color-bg-table | --color-bg-table-felt  (не меняются)
+```
+
+---
+
 ## SCSS + BEM
 
 ### BEM Naming

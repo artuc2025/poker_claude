@@ -39,9 +39,12 @@
 
 ### Current Phase: `PHASE_2 — Game Table`
 
+### Completed Tasks (Phase 2)
+- [x] P2-T01: GameTable layout — овальный стол с позициями игроков (2026-03-29)
+
 ### Current Task
 <!-- Формат: - [ ] TASK_ID: описание -->
-- [ ] P2-T01: GameTable layout — овальный стол с позициями игроков
+- [ ] P2-T02: PlayerSeat — аватар, ник, стек, статус
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->

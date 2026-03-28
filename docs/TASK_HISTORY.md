@@ -210,3 +210,22 @@
   - `data-theme` на `<html>` — стандартный паттерн, позволяет CSS selectors работать без JS overhead
 - **Known issues**: нет
 - **Next recommended task**: P2-T01 (GameTable layout)
+
+---
+
+### P2-T01: GameTable layout — овальный стол с позициями игроков
+- **Date**: 2026-03-29
+- **Phase**: 2
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/game/GameTable.vue` — овальный стол с 9 позициями, зелёное сукно с радиальным градиентом, деревянный рейл, центральная область с 5 слотами для карт и pot display, абсолютно позиционированные seat-плашки
+  - `pages/table/[id].vue` — заменён placeholder на `<GameTable :table="table" />`, добавлен `.table-page__canvas` wrapper
+- **Decisions made**:
+  - Seat-позиции заданы как `[left%, top%]` массив констант — простое абсолютное позиционирование с `transform: translate(-50%, -50%)`
+  - Герой всегда на seat 6 (bottom center), seat positions 0-8 соответствуют схеме из ARCHITECTURE.md
+  - Инициализация gameStore происходит в `onMounted` GameTable — идемпотентно (пропускается если seats уже заняты)
+  - Стек игрока ограничен 100 BB от стола (`bigBlind * 100`) для реалистичности
+  - PlayerSeat — пока inline-placeholder в GameTable (имя + стек + dealer button); выносится в отдельный компонент в P2-T02
+  - SCSS переменные `$table-width`, `$table-height`, `$table-border-width` используются напрямую (auto-injected)
+- **Known issues**: нет
+- **Next recommended task**: P2-T02 (PlayerSeat: аватар, ник, стек, статус)

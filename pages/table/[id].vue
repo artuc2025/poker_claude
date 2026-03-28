@@ -43,15 +43,8 @@ onUnmounted(() => {
         </span>
       </div>
 
-      <div class="table-page__felt">
-        <p class="table-page__placeholder">
-          Game Table — coming in P2-T01
-        </p>
-        <div class="table-page__info">
-          <span>Players: {{ table.playersCount }}/{{ table.config.maxPlayers }}</span>
-          <span>Avg pot: ${{ table.averagePot }}</span>
-          <span>Hands/hr: {{ table.handsPerHour }}</span>
-        </div>
+      <div class="table-page__canvas">
+        <GameTable :table="table" />
       </div>
     </template>
 
@@ -96,28 +89,10 @@ onUnmounted(() => {
     margin-left: auto;
   }
 
-  &__felt {
+  &__canvas {
     @include flex-center;
-    flex-direction: column;
-    gap: $spacing-6;
-    min-height: 480px;
-    background: $color-bg-table;
-    border-radius: $border-radius-xl;
-    border: 4px solid color-mix(in srgb, $color-bg-table-felt 60%, transparent);
-    box-shadow: var(--shadow-xl);
-  }
-
-  &__placeholder {
-    color: var(--color-text-secondary);
-    font-size: $font-size-lg;
-  }
-
-  &__info {
-    display: flex;
-    gap: $spacing-6;
-    font-family: $font-mono;
-    font-size: $font-size-sm;
-    color: $color-accent-gold;
+    padding: $spacing-6 $spacing-4;
+    overflow-x: auto;
   }
 
   &__loading {
