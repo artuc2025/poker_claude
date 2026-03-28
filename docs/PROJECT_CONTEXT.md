@@ -34,10 +34,11 @@
 - [x] P1-T06: Pinia stores scaffold + all types (2026-03-28)
 - [x] P1-T07: Types — все интерфейсы (выполнено в рамках P1-T06) (2026-03-28)
 - [x] P1-T08: Mock data: players, tables, tournaments, hands, cards (2026-03-28)
+- [x] P1-T09: Routing — все pages с placeholder контентом (2026-03-28)
 
 ### Current Task
 <!-- Формат: - [ ] TASK_ID: описание -->
-- [ ] P1-T09: Routing — все pages с placeholder контентом
+- [ ] P1-T10: Dark theme + CSS custom properties
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->

@@ -170,3 +170,23 @@
   - MOCK_HERO.handHistory = [] — реальная история подключается из hands.ts в store init (P1-T09 или плагин)
 - **Known issues**: нет
 - **Next recommended task**: P1-T09 (Routing: все pages с placeholder контентом)
+
+---
+
+### P1-T09: Routing — все pages с placeholder контентом
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `pages/index.vue` — обновлён: инициализация lobbyStore + playerStore из моков в onMounted, список столов с NuxtLink → /table/[id]
+  - `pages/table/[id].vue` — страница стола: читает table из lobbyStore по route.params.id, зелёное "сукно" placeholder, gameStore.$reset() в onUnmounted
+  - `pages/tournament/index.vue` — список турниров: инициализация tournamentStore, список с NuxtLink → /tournament/[id], статус с цветом
+  - `pages/tournament/[id].vue` — детальная страница турнира: info, blind schedule таблица, standings; setCurrentTournament в onMounted/onUnmounted
+  - `pages/profile/[id].vue` — профиль игрока: id='me' → hero, иначе поиск в MOCK_PLAYERS; stats, bankroll, achievements, hand history
+- **Decisions made**:
+  - Инициализация сторов из моков происходит в onMounted каждой страницы (идемпотентно — не перезаписывает если уже загружено)
+  - profile/[id].vue поддерживает id='me' как алиас для hero — удобно для навигации из header
+  - table/[id].vue вызывает gameStore.$reset() при unmount — чистим состояние игры при выходе со стола
+  - Все страницы используют layout: 'default'
+- **Known issues**: нет
+- **Next recommended task**: P1-T10 (Dark theme + CSS custom properties)
