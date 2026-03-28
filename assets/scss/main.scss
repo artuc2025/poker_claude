@@ -1,0 +1,45 @@
+// =============================================================================
+// Main — PokerArena Global Styles
+// =============================================================================
+
+// Design tokens and utilities (auto-injected via nuxt.config additionalData)
+// @use 'variables' as *;
+// @use 'mixins' as *;
+
+// Base
+@use 'reset';
+@use 'typography';
+@use 'animations';
+
+// -----------------------------------------------------------------------------
+// Global
+// -----------------------------------------------------------------------------
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: $color-bg-primary;
+  color: $color-text-primary;
+  font-family: $font-body;
+  font-size: $font-size-md;
+  font-weight: $font-weight-regular;
+}
+
+// Global scrollbar
+* {
+  @include custom-scrollbar;
+}
+
+// Selection
+::selection {
+  background: rgba($color-accent-gold, 0.3);
+  color: $color-text-primary;
+}
+
+// Focus visible — global
+:focus-visible {
+  outline: 2px solid $color-accent-gold;
+  outline-offset: 2px;
+}

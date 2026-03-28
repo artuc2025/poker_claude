@@ -40,4 +40,31 @@
 - **Next recommended task**: P1-T02
 -->
 
-*Пока пусто. Первый таск ещё не начат.*
+### P1-T01: Nuxt 3 scaffold + TS strict + SCSS foundation
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `package.json` — nuxt 3.11, pinia, gsap, sass, typescript deps
+  - `nuxt.config.ts` — SCSS additionalData (variables + mixins auto-injected), @pinia/nuxt module, Google Fonts (Bebas Neue, DM Sans, JetBrains Mono)
+  - `tsconfig.json` — strict mode + noUncheckedIndexedAccess + exactOptionalPropertyTypes
+  - `app.vue` — root с NuxtLayout + NuxtPage, data-theme="dark"
+  - `layouts/default.vue` — базовый layout
+  - `pages/index.vue` — placeholder страница лобби
+  - `assets/scss/_variables.scss` — все design tokens (цвета, типографика, спейсинг, бордеры, тени, z-index, переходы, breakpoints, card/table размеры)
+  - `assets/scss/_mixins.scss` — respond-to, flex-center/between/column, absolute-fill/center, text-ellipsis, card-base, chip-color, glow, glass, hover-lift, focus-ring, custom-scrollbar
+  - `assets/scss/_reset.scss` — CSS normalize/reset
+  - `assets/scss/_typography.scss` — utility классы для шрифтов и цветов
+  - `assets/scss/_animations.scss` — keyframes (fade, card-deal, card-flip, chip-fly, pulse-glow, timer-drain) + utility классы
+  - `assets/scss/main.scss` — импорт всех partials, глобальные стили body/selection/scrollbar
+  - `plugins/gsap.client.ts` — GSAP как client-only Nuxt plugin
+  - `.gitignore` — node_modules, .nuxt, .output, .env
+- **Decisions made**:
+  - `sass` пакет (не `node-sass` — устарел)
+  - GSAP подключён через `plugins/gsap.client.ts` (client-only, избегаем SSR-проблем)
+  - variables и mixins auto-inject через `vite.css.preprocessorOptions.scss.additionalData` — не нужно `@use` в каждом компоненте
+  - `chip-color` mixin использует `color-mix()` вместо deprecated `darken()` из sass
+  - Fonts через Google Fonts CDN (не локально) для быстрого старта
+  - P1-T02 считается выполненным — SCSS foundation создана в рамках P1-T01
+- **Known issues**: нет
+- **Next recommended task**: P1-T03 (UI Kit: BaseButton, BaseModal, BaseInput, BaseAvatar)

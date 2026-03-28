@@ -1,0 +1,164 @@
+// =============================================================================
+// Variables — PokerArena Design Tokens
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Colors — Background
+// -----------------------------------------------------------------------------
+$color-bg-primary:      #0d1117;
+$color-bg-secondary:    #161b22;
+$color-bg-tertiary:     #21262d;
+$color-bg-table:        #1a472a;
+$color-bg-table-felt:   #2d6a3f;
+$color-bg-overlay:      rgba(0, 0, 0, 0.7);
+
+// -----------------------------------------------------------------------------
+// Colors — Text
+// -----------------------------------------------------------------------------
+$color-text-primary:    #e6edf3;
+$color-text-secondary:  #8b949e;
+$color-text-muted:      #484f58;
+$color-text-accent:     #f0c040;
+$color-text-inverse:    #0d1117;
+
+// -----------------------------------------------------------------------------
+// Colors — Accent
+// -----------------------------------------------------------------------------
+$color-accent-gold:     #f0c040;
+$color-accent-gold-dim: #b8900a;
+$color-accent-red:      #e74c3c;
+$color-accent-green:    #2ecc71;
+$color-accent-blue:     #3498db;
+$color-accent-purple:   #9b59b6;
+
+// -----------------------------------------------------------------------------
+// Colors — Suits
+// -----------------------------------------------------------------------------
+$color-suit-hearts:     #e74c3c;
+$color-suit-diamonds:   #e74c3c;
+$color-suit-clubs:      #e6edf3;
+$color-suit-spades:     #e6edf3;
+
+// -----------------------------------------------------------------------------
+// Colors — Chips
+// -----------------------------------------------------------------------------
+$color-chip-white:      #f5f5f5;   // $1
+$color-chip-red:        #e74c3c;   // $5
+$color-chip-blue:       #3498db;   // $10
+$color-chip-green:      #2ecc71;   // $25
+$color-chip-black:      #2c3e50;   // $100
+$color-chip-purple:     #9b59b6;   // $500
+$color-chip-gold:       #f0c040;   // $1000
+
+// -----------------------------------------------------------------------------
+// Colors — UI States
+// -----------------------------------------------------------------------------
+$color-state-success:   #2ecc71;
+$color-state-warning:   #f39c12;
+$color-state-error:     #e74c3c;
+$color-state-info:      #3498db;
+
+// -----------------------------------------------------------------------------
+// Colors — Borders
+// -----------------------------------------------------------------------------
+$color-border-primary:  #30363d;
+$color-border-secondary: #21262d;
+$color-border-accent:   #f0c040;
+
+// -----------------------------------------------------------------------------
+// Typography
+// -----------------------------------------------------------------------------
+$font-display:  'Bebas Neue', sans-serif;
+$font-body:     'DM Sans', sans-serif;
+$font-mono:     'JetBrains Mono', monospace;
+
+$font-size-xs:  12px;
+$font-size-sm:  14px;
+$font-size-md:  16px;
+$font-size-lg:  18px;
+$font-size-xl:  24px;
+$font-size-2xl: 32px;
+$font-size-3xl: 48px;
+$font-size-4xl: 64px;
+
+$font-weight-light:   300;
+$font-weight-regular: 400;
+$font-weight-medium:  500;
+$font-weight-semibold: 600;
+$font-weight-bold:    700;
+
+$line-height-tight:   1.2;
+$line-height-normal:  1.5;
+$line-height-relaxed: 1.75;
+
+// -----------------------------------------------------------------------------
+// Spacing
+// -----------------------------------------------------------------------------
+$spacing-1:   4px;
+$spacing-2:   8px;
+$spacing-3:   12px;
+$spacing-4:   16px;
+$spacing-5:   20px;
+$spacing-6:   24px;
+$spacing-8:   32px;
+$spacing-10:  40px;
+$spacing-12:  48px;
+$spacing-16:  64px;
+$spacing-20:  80px;
+
+// -----------------------------------------------------------------------------
+// Border Radius
+// -----------------------------------------------------------------------------
+$radius-sm:   4px;
+$radius-md:   8px;
+$radius-lg:   12px;
+$radius-xl:   16px;
+$radius-2xl:  24px;
+$radius-full: 9999px;
+
+// -----------------------------------------------------------------------------
+// Shadows
+// -----------------------------------------------------------------------------
+$shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.3);
+$shadow-md:   0 4px 12px rgba(0, 0, 0, 0.4);
+$shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.5);
+$shadow-xl:   0 16px 48px rgba(0, 0, 0, 0.6);
+$shadow-glow-gold:   0 0 12px rgba(240, 192, 64, 0.4);
+$shadow-glow-green:  0 0 12px rgba(46, 204, 113, 0.4);
+$shadow-glow-red:    0 0 12px rgba(231, 76, 60, 0.4);
+
+// -----------------------------------------------------------------------------
+// Z-Index
+// -----------------------------------------------------------------------------
+$z-index-base:      0;
+$z-index-raised:    10;
+$z-index-overlay:   100;
+$z-index-modal:     200;
+$z-index-toast:     300;
+$z-index-tooltip:   400;
+
+// -----------------------------------------------------------------------------
+// Transitions
+// -----------------------------------------------------------------------------
+$transition-fast:   150ms ease;
+$transition-base:   300ms ease;
+$transition-slow:   500ms ease;
+$transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// -----------------------------------------------------------------------------
+// Breakpoints
+// -----------------------------------------------------------------------------
+$breakpoint-mobile:  480px;
+$breakpoint-tablet:  768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide:    1440px;
+
+// -----------------------------------------------------------------------------
+// Game Table
+// -----------------------------------------------------------------------------
+$table-width:        900px;
+$table-height:       540px;
+$table-border-width: 12px;
+$card-width:         72px;
+$card-height:        100px;
+$card-radius:        6px;

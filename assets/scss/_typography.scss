@@ -1,0 +1,54 @@
+// =============================================================================
+// Typography — PokerArena
+// =============================================================================
+@use 'variables' as *;
+
+// Display — Bebas Neue (заголовки, цифры банка)
+.text-display {
+  font-family: $font-display;
+  line-height: $line-height-tight;
+  letter-spacing: 0.05em;
+
+  &--xl  { font-size: $font-size-4xl; }
+  &--lg  { font-size: $font-size-3xl; }
+  &--md  { font-size: $font-size-2xl; }
+  &--sm  { font-size: $font-size-xl; }
+}
+
+// Body — DM Sans
+.text-body {
+  font-family: $font-body;
+  line-height: $line-height-normal;
+
+  &--lg  { font-size: $font-size-lg; }
+  &--md  { font-size: $font-size-md; }
+  &--sm  { font-size: $font-size-sm; }
+  &--xs  { font-size: $font-size-xs; }
+}
+
+// Mono — JetBrains Mono (числа, таймер)
+.text-mono {
+  font-family: $font-mono;
+  line-height: $line-height-normal;
+
+  &--lg  { font-size: $font-size-lg; }
+  &--md  { font-size: $font-size-md; }
+  &--sm  { font-size: $font-size-sm; }
+  &--xs  { font-size: $font-size-xs; }
+}
+
+// Color utilities
+.text-primary    { color: $color-text-primary; }
+.text-secondary  { color: $color-text-secondary; }
+.text-muted      { color: $color-text-muted; }
+.text-accent     { color: $color-accent-gold; }
+.text-success    { color: $color-state-success; }
+.text-danger     { color: $color-state-error; }
+.text-warning    { color: $color-state-warning; }
+
+// Weight utilities
+.font-light    { font-weight: $font-weight-light; }
+.font-regular  { font-weight: $font-weight-regular; }
+.font-medium   { font-weight: $font-weight-medium; }
+.font-semibold { font-weight: $font-weight-semibold; }
+.font-bold     { font-weight: $font-weight-bold; }

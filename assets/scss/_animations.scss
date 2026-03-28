@@ -1,0 +1,147 @@
+// =============================================================================
+// Animations — PokerArena
+// =============================================================================
+@use 'variables' as *;
+
+// -----------------------------------------------------------------------------
+// Keyframes
+// -----------------------------------------------------------------------------
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes card-deal {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.8) rotate(-5deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes card-flip {
+  0%   { transform: rotateY(0deg); }
+  50%  { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
+}
+
+@keyframes chip-fly {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.8) translateY(-30px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.5) translateY(-60px);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(240, 192, 64, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(240, 192, 64, 0.7);
+  }
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.7);
+  }
+}
+
+@keyframes timer-drain {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 283; } // 2π × 45 (radius)
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+@keyframes winner-shine {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+// -----------------------------------------------------------------------------
+// Animation utility classes
+// -----------------------------------------------------------------------------
+
+.animate-fade-in {
+  animation: fade-in $transition-base both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up $transition-base both;
+}
+
+.animate-scale-in {
+  animation: scale-in $transition-base both;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+// Stagger delays for list items
+@for $i from 1 through 9 {
+  .animate-delay-#{$i} {
+    animation-delay: #{$i * 50}ms;
+  }
+}
