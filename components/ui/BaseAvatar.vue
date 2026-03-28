@@ -73,30 +73,6 @@ function onImgError() {
 </template>
 
 <style lang="scss" scoped>
-$avatar-sizes: (
-  'xs': 24px,
-  'sm': 32px,
-  'md': 40px,
-  'lg': 56px,
-  'xl': 80px,
-);
-
-$font-sizes: (
-  'xs': 10px,
-  'sm': 12px,
-  'md': 14px,
-  'lg': 18px,
-  'xl': 26px,
-);
-
-$dot-sizes: (
-  'xs': 6px,
-  'sm': 8px,
-  'md': 10px,
-  'lg': 12px,
-  'xl': 14px,
-);
-
 .base-avatar {
   position: relative;
   display: inline-flex;
@@ -109,19 +85,16 @@ $dot-sizes: (
   border: 1px solid $color-border;
 
   // --- Sizes ---
-  @each $name, $size in $avatar-sizes {
-    &--#{$name} {
-      width: $size;
-      height: $size;
-      font-size: map-get($font-sizes, $name);
-
-      .base-avatar__online-dot {
-        $dot: map-get($dot-sizes, $name);
-        width: $dot;
-        height: $dot;
-      }
-    }
-  }
+  &--xs { width: 24px; height: 24px; font-size: 10px;
+    .base-avatar__online-dot { width: 6px;  height: 6px;  } }
+  &--sm { width: 32px; height: 32px; font-size: 12px;
+    .base-avatar__online-dot { width: 8px;  height: 8px;  } }
+  &--md { width: 40px; height: 40px; font-size: 14px;
+    .base-avatar__online-dot { width: 10px; height: 10px; } }
+  &--lg { width: 56px; height: 56px; font-size: 18px;
+    .base-avatar__online-dot { width: 12px; height: 12px; } }
+  &--xl { width: 80px; height: 80px; font-size: 26px;
+    .base-avatar__online-dot { width: 14px; height: 14px; } }
 
   // --- Variants ---
   &--circle { border-radius: 50%; }

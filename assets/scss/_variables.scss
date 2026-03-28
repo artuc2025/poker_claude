@@ -65,6 +65,9 @@ $color-border-primary:  #30363d;
 $color-border-secondary: #21262d;
 $color-border-accent:   #f0c040;
 
+// Aliases
+$color-border:          $color-border-primary;
+
 // -----------------------------------------------------------------------------
 // Typography
 // -----------------------------------------------------------------------------
@@ -106,6 +109,13 @@ $spacing-12:  48px;
 $spacing-16:  64px;
 $spacing-20:  80px;
 
+// Semantic aliases
+$spacing-xs:  $spacing-1;
+$spacing-sm:  $spacing-2;
+$spacing-md:  $spacing-4;
+$spacing-lg:  $spacing-6;
+$spacing-xl:  $spacing-8;
+
 // -----------------------------------------------------------------------------
 // Border Radius
 // -----------------------------------------------------------------------------
@@ -115,6 +125,13 @@ $radius-lg:   12px;
 $radius-xl:   16px;
 $radius-2xl:  24px;
 $radius-full: 9999px;
+
+// Aliases
+$border-radius-sm:   $radius-sm;
+$border-radius-md:   $radius-md;
+$border-radius-lg:   $radius-lg;
+$border-radius-xl:   $radius-xl;
+$border-radius-full: $radius-full;
 
 // -----------------------------------------------------------------------------
 // Shadows
@@ -133,6 +150,7 @@ $shadow-glow-red:    0 0 12px rgba(231, 76, 60, 0.4);
 $z-index-base:      0;
 $z-index-raised:    10;
 $z-index-overlay:   100;
+$z-index-header:    150;
 $z-index-modal:     200;
 $z-index-toast:     300;
 $z-index-tooltip:   400;
@@ -144,6 +162,9 @@ $transition-fast:   150ms ease;
 $transition-base:   300ms ease;
 $transition-slow:   500ms ease;
 $transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// Alias
+$transition-normal: $transition-base;
 
 // -----------------------------------------------------------------------------
 // Breakpoints

@@ -30,10 +30,11 @@
 - [x] P1-T02: SCSS foundation — выполнено в рамках P1-T01 (2026-03-28)
 - [x] P1-T03: UI Kit: BaseButton, BaseModal, BaseInput, BaseAvatar (2026-03-28)
 - [x] P1-T04: UI Kit: BaseToast, BaseBadge, BaseLoader, BaseTooltip (2026-03-28)
+- [x] P1-T05: Layout: AppHeader, AppSidebar, AppFooter (2026-03-28)
 
 ### Current Task
 <!-- Формат: - [ ] TASK_ID: описание -->
-- [ ] P1-T05: Layout: AppHeader, AppSidebar, AppFooter
+- [ ] P1-T06: Pinia stores: скаффолд всех сторов
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->

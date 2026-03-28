@@ -106,3 +106,22 @@
   - BaseBadge использует `!important` только в outline-модификаторе для переопределения background варианта — единственный допустимый случай по RULES.md
 - **Known issues**: нет
 - **Next recommended task**: P1-T05 (Layout: AppHeader, AppSidebar, AppFooter)
+
+---
+
+### P1-T05: Layout — AppHeader, AppSidebar, AppFooter
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/layout/AppHeader.vue` — sticky header, logo, nav links с active state, bankroll + deposit, level badge, avatar
+  - `components/layout/AppSidebar.vue` — collapsible (v-model:collapsed), nav links, секция «Мои столы» с mock данными, плавная анимация toggle
+  - `components/layout/AppFooter.vue` — copyright, links, online counter (mock)
+  - `layouts/default.vue` — обновлён: AppHeader + AppSidebar + slot(main) + AppFooter, flex-column структура
+- **Decisions made**:
+  - Hero данные и active tables в header/sidebar — пока mock-константы, будут заменены на stores/player.ts и stores/lobby.ts в P1-T06
+  - Sidebar collapse через `v-model:collapsed` (emit update:collapsed) — стандартный Vue pattern
+  - AppSidebar — `overflow: hidden` + transition на `width` для плавного collapse без JS измерений
+  - default.vue использует `flex: 1; min-height: 0` на body для корректного scroll внутри main без overflow на всей странице
+- **Known issues**: нет
+- **Next recommended task**: P1-T06 (Pinia stores scaffold)

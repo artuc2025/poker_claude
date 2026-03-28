@@ -49,30 +49,6 @@ withDefaults(defineProps<{
 </template>
 
 <style lang="scss" scoped>
-$loader-colors: (
-  'gold':  $color-accent-gold,
-  'white': $color-text-primary,
-  'muted': $color-text-secondary,
-);
-
-$spinner-sizes: (
-  'sm': 16px,
-  'md': 24px,
-  'lg': 40px,
-);
-
-$border-widths: (
-  'sm': 2px,
-  'md': 2px,
-  'lg': 3px,
-);
-
-$dot-sizes: (
-  'sm': 5px,
-  'md': 7px,
-  'lg': 10px,
-);
-
 .base-loader {
   display: inline-flex;
   align-items: center;
@@ -85,37 +61,30 @@ $dot-sizes: (
     border-color: rgba(255, 255, 255, 0.12);
     animation: loader-spin 0.75s linear infinite;
 
-    @each $s, $size in $spinner-sizes {
-      &.base-loader--#{$s} {
-        width: $size;
-        height: $size;
-        border-width: map-get($border-widths, $s);
-      }
-    }
+    // Sizes
+    &.base-loader--sm { width: 16px; height: 16px; border-width: 2px; }
+    &.base-loader--md { width: 24px; height: 24px; border-width: 2px; }
+    &.base-loader--lg { width: 40px; height: 40px; border-width: 3px; }
 
-    @each $name, $color in $loader-colors {
-      &.base-loader--#{$name} {
-        border-top-color: $color;
-      }
-    }
+    // Colors
+    &.base-loader--gold  { border-top-color: $color-accent-gold; }
+    &.base-loader--white { border-top-color: $color-text-primary; }
+    &.base-loader--muted { border-top-color: $color-text-secondary; }
   }
 
   // --- Dots ---
   &--dots {
     gap: 4px;
 
-    @each $s, $size in $dot-sizes {
-      &.base-loader--#{$s} .base-loader__dot {
-        width: $size;
-        height: $size;
-      }
-    }
+    // Sizes
+    &.base-loader--sm .base-loader__dot { width: 5px;  height: 5px;  }
+    &.base-loader--md .base-loader__dot { width: 7px;  height: 7px;  }
+    &.base-loader--lg .base-loader__dot { width: 10px; height: 10px; }
 
-    @each $name, $color in $loader-colors {
-      &.base-loader--#{$name} .base-loader__dot {
-        background: $color;
-      }
-    }
+    // Colors
+    &.base-loader--gold  .base-loader__dot { background: $color-accent-gold; }
+    &.base-loader--white .base-loader__dot { background: $color-text-primary; }
+    &.base-loader--muted .base-loader__dot { background: $color-text-secondary; }
   }
 
   &__dot {
