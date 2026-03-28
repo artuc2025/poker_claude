@@ -12,6 +12,9 @@ const uiStore = useUiStore()
 
 const tableId = computed(() => route.params.id as string)
 
+const canvasRef = ref<HTMLElement | null>(null)
+const { scale } = useTableScale(canvasRef)
+
 const table = computed(() =>
   lobbyStore.tables.find((t) => t.id === tableId.value) ?? null
 )
@@ -43,8 +46,10 @@ onUnmounted(() => {
         </span>
       </div>
 
-      <div class="table-page__canvas">
-        <GameTable :table="table" />
+      <div ref="canvasRef" class="table-page__canvas">
+        <div :style="{ zoom: scale }">
+          <GameTable :table="table" />
+        </div>
       </div>
     </template>
 
@@ -56,7 +61,10 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .table-page {
-  padding: $spacing-6;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: $spacing-6 $spacing-6 0;
 
   &__header {
     display: flex;
@@ -91,8 +99,10 @@ onUnmounted(() => {
 
   &__canvas {
     @include flex-center;
-    padding: $spacing-6 $spacing-4;
-    overflow-x: auto;
+    flex: 1;
+    min-height: 0;
+    padding: $spacing-4;
+    overflow: hidden;
   }
 
   &__loading {
