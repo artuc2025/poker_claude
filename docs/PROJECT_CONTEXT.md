@@ -31,10 +31,13 @@
 - [x] P1-T03: UI Kit: BaseButton, BaseModal, BaseInput, BaseAvatar (2026-03-28)
 - [x] P1-T04: UI Kit: BaseToast, BaseBadge, BaseLoader, BaseTooltip (2026-03-28)
 - [x] P1-T05: Layout: AppHeader, AppSidebar, AppFooter (2026-03-28)
+- [x] P1-T06: Pinia stores scaffold + all types (2026-03-28)
+- [x] P1-T07: Types — все интерфейсы (выполнено в рамках P1-T06) (2026-03-28)
+- [x] P1-T08: Mock data: players, tables, tournaments, hands, cards (2026-03-28)
 
 ### Current Task
 <!-- Формат: - [ ] TASK_ID: описание -->
-- [ ] P1-T06: Pinia stores: скаффолд всех сторов
+- [ ] P1-T09: Routing — все pages с placeholder контентом
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->

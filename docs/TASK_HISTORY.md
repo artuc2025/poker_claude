@@ -125,3 +125,48 @@
   - default.vue использует `flex: 1; min-height: 0` на body для корректного scroll внутри main без overflow на всей странице
 - **Known issues**: нет
 - **Next recommended task**: P1-T06 (Pinia stores scaffold)
+
+---
+
+### P1-T06: Pinia Stores scaffold + Types
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `types/game.ts` — Suit, Rank, Card, GamePhase, PlayerAction, SeatStatus, SidePot, SeatState, ActionRecord, GameState
+  - `types/player.ts` — PlayerLevel, PlayerStats, HandHistoryEntry, Achievement, Player
+  - `types/table.ts` — TableType, TableSpeed, TableStatus, Stakes, TableConfig, Table
+  - `types/tournament.ts` — TournamentStatus, TournamentType, BlindLevel, PrizeEntry, TournamentStanding, Tournament
+  - `types/ui.ts` — ToastType, Theme, ModalId, Toast
+  - `stores/game.ts` — gameState, phase, pot, sidePots, communityCards, deck, seats, actions: recordAction/addToPot/revealCommunityCard/advanceCurrentSeat/resetRound
+  - `stores/lobby.ts` — tables, filters (type/speed/blinds/players), sortBy, getters: filteredTables/selectedTable
+  - `stores/tournament.ts` — tournaments, currentTournamentId, filters, getters: filteredTournaments/currentTournament/standings, tickNextLevel
+  - `stores/player.ts` — currentPlayer, bankroll, stats, handHistory, achievements, addHandHistory, unlockAchievement
+  - `stores/ui.ts` — theme, activeModal, modalPayload, toasts, soundEnabled, sidebarCollapsed, showToast/removeToast (auto-timeout)
+- **Decisions made**:
+  - Types созданы одновременно с сторами — P1-T07 считается выполненным в рамках P1-T06
+  - `showToast` в ui.ts автоматически вызывает setTimeout + removeToast — компонент ToastContainer просто рендерит массив
+  - `modalPayload: Record<string, unknown>` — гибкий способ передавать данные в модалки без типовых коллизий
+  - `advanceCurrentSeat` пропускает folded/all-in/empty сиденья — готово для game engine
+  - Lobby и Tournament filters используют generic `setFilter<K>` action — не нужно action на каждый фильтр
+- **Known issues**: нет
+- **Next recommended task**: P1-T08 (Mock data: players, tables, tournaments)
+
+---
+
+### P1-T08: Mock data — players, tables, tournaments, hands, cards
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `data/mock/cards.ts` — SUITS, RANKS, RANK_VALUES, SUIT_SYMBOLS, buildDeck(), shuffleDeck(), FULL_DECK
+  - `data/mock/players.ts` — MOCK_HERO (hero player) + 8 opponent players с реалистичной статистикой (VPIP/PFR/winRate)
+  - `data/mock/tables.ts` — 8 столов: micro/mid/high stakes, normal/fast/turbo speed, 2/6/9 max players
+  - `data/mock/tournaments.ts` — 6 турниров: registering/running/finished, freezeout/bounty/rebuy, freeroll до $1000 buy-in; STANDARD_BLINDS и TURBO_BLINDS структуры
+  - `data/mock/hands.ts` — 10 записей истории рук для hero: won/lost/folded, разные фазы и столы
+- **Decisions made**:
+  - TURBO_BLINDS — деривированы из STANDARD_BLINDS через map (длительность / 2), минимум 5 минут
+  - heroCards/communityCards в hands.ts хранятся как строки `'suit-rank'` (Card.id формат) — для связки с buildDeck()
+  - MOCK_HERO.handHistory = [] — реальная история подключается из hands.ts в store init (P1-T09 или плагин)
+- **Known issues**: нет
+- **Next recommended task**: P1-T09 (Routing: все pages с placeholder контентом)
