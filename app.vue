@@ -7,10 +7,14 @@
 </template>
 
 <script setup lang="ts">
+import { useUiStore } from '@/stores/ui'
+
+const uiStore = useUiStore()
+
 useHead({
   htmlAttrs: {
     lang: 'en',
-    'data-theme': 'dark',
+    'data-theme': computed(() => uiStore.theme),
   },
 })
 </script>
@@ -18,8 +22,8 @@ useHead({
 <style lang="scss" scoped>
 .app {
   min-height: 100vh;
-  background: $color-bg-primary;
-  color: $color-text-primary;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: $font-body;
 }
 </style>

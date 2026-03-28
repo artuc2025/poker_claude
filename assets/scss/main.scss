@@ -12,12 +12,80 @@
 @use 'animations';
 
 // -----------------------------------------------------------------------------
-// Global
+// CSS Custom Properties — Theme tokens
+// Mapped from SCSS variables so JS can toggle data-theme at runtime.
 // -----------------------------------------------------------------------------
 
+[data-theme='dark'],
 :root {
   color-scheme: dark;
+
+  // Backgrounds
+  --color-bg-primary:       #{$color-bg-primary};
+  --color-bg-secondary:     #{$color-bg-secondary};
+  --color-bg-tertiary:      #{$color-bg-tertiary};
+  --color-bg-overlay:       #{$color-bg-overlay};
+
+  // Text
+  --color-text-primary:     #{$color-text-primary};
+  --color-text-secondary:   #{$color-text-secondary};
+  --color-text-muted:       #{$color-text-muted};
+  --color-text-inverse:     #{$color-text-inverse};
+
+  // Borders
+  --color-border-primary:   #{$color-border-primary};
+  --color-border-secondary: #{$color-border-secondary};
+
+  // Accents (same in both themes)
+  --color-accent-gold:      #{$color-accent-gold};
+  --color-accent-gold-dim:  #{$color-accent-gold-dim};
+  --color-accent-red:       #{$color-accent-red};
+  --color-accent-green:     #{$color-accent-green};
+  --color-accent-blue:      #{$color-accent-blue};
+  --color-accent-purple:    #{$color-accent-purple};
+
+  // States
+  --color-state-success:    #{$color-state-success};
+  --color-state-warning:    #{$color-state-warning};
+  --color-state-error:      #{$color-state-error};
+  --color-state-info:       #{$color-state-info};
+
+  // Shadows
+  --shadow-sm:  #{$shadow-sm};
+  --shadow-md:  #{$shadow-md};
+  --shadow-lg:  #{$shadow-lg};
+  --shadow-xl:  #{$shadow-xl};
+
+  // Table (always green — not themed)
+  --color-bg-table:         #{$color-bg-table};
+  --color-bg-table-felt:    #{$color-bg-table-felt};
 }
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --color-bg-primary:       #f6f8fa;
+  --color-bg-secondary:     #ffffff;
+  --color-bg-tertiary:      #eaeef2;
+  --color-bg-overlay:       rgba(0, 0, 0, 0.5);
+
+  --color-text-primary:     #1c2128;
+  --color-text-secondary:   #57606a;
+  --color-text-muted:       #8c959f;
+  --color-text-inverse:     #f6f8fa;
+
+  --color-border-primary:   #d0d7de;
+  --color-border-secondary: #eaeef2;
+
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.16);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.20);
+  --shadow-xl:  0 16px 48px rgba(0, 0, 0, 0.24);
+}
+
+// -----------------------------------------------------------------------------
+// Global
+// -----------------------------------------------------------------------------
 
 body {
   background: $color-bg-primary;

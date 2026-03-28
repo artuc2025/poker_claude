@@ -27,7 +27,7 @@ const sidebarCollapsed = ref(false)
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: $color-bg-primary;
+  background: var(--color-bg-primary);
 
   &__body {
     display: flex;

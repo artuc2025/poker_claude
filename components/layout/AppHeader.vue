@@ -2,14 +2,19 @@
 // 1. Imports
 import BaseAvatar from '@/components/ui/BaseAvatar.vue'
 import BaseBadge from '@/components/ui/BaseBadge.vue'
+import { usePlayerStore } from '@/stores/player'
+import { useUiStore } from '@/stores/ui'
 
-// 2. Mock hero data (будет заменено на stores/player.ts в P1-T06)
-const hero = {
-  name: 'PokerPro',
-  bankroll: 24_500,
-  avatar: '',
-  level: 42,
-}
+// 2. Stores
+const playerStore = usePlayerStore()
+const uiStore = useUiStore()
+
+const hero = computed(() => ({
+  name: playerStore.currentPlayer?.name ?? 'Guest',
+  bankroll: playerStore.bankroll,
+  avatar: playerStore.currentPlayer?.avatarUrl ?? '',
+  level: playerStore.currentPlayer?.level ?? 'beginner',
+}))
 
 // 3. Nav links
 const navLinks = [
@@ -68,8 +73,23 @@ const formatBankroll = (val: number) =>
           </svg>
         </button>
 
+        <!-- Theme toggle -->
+        <button
+          class="app-header__theme-toggle"
+          :aria-label="uiStore.isDark ? 'Switch to light theme' : 'Switch to dark theme'"
+          @click="uiStore.toggleTheme()"
+        >
+          <svg v-if="uiStore.isDark" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+          <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
         <!-- Level badge -->
-        <BaseBadge variant="gold" size="sm">Lv {{ hero.level }}</BaseBadge>
+        <BaseBadge variant="gold" size="sm">{{ hero.level }}</BaseBadge>
 
         <!-- Avatar -->
         <BaseAvatar
@@ -191,6 +211,24 @@ $header-height: 56px;
       font-family: $font-mono;
       font-size: 14px;
       font-weight: 600;
+      color: $color-accent-gold;
+    }
+  }
+
+  &__theme-toggle {
+    @include flex-center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    background: transparent;
+    color: $color-text-secondary;
+    cursor: pointer;
+    transition: background $transition-fast, color $transition-fast, border-color $transition-fast;
+
+    &:hover {
+      background: rgba($color-accent-gold, 0.1);
+      border-color: $color-accent-gold;
       color: $color-accent-gold;
     }
   }

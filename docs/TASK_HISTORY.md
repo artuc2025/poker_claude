@@ -190,3 +190,23 @@
   - Все страницы используют layout: 'default'
 - **Known issues**: нет
 - **Next recommended task**: P1-T10 (Dark theme + CSS custom properties)
+
+---
+
+### P1-T10: Dark theme + CSS custom properties
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `assets/scss/_theme.scss` — CSS custom properties для `[data-theme="dark"]` и `[data-theme="light"]`; маппинг всех bg/text/border/shadow/accent переменных; light theme с GitHub-inspired светлой палитрой
+  - `assets/scss/main.scss` — добавлен `@use 'theme'`, убран дублирующий `:root { color-scheme: dark }`
+  - `app.vue` — `data-theme` теперь реактивно привязан к `computed(() => uiStore.theme)` через `useHead`; `.app` использует `var(--color-bg-primary)` и `var(--color-text-primary)`
+  - `layouts/default.vue` — фон заменён на `var(--color-bg-primary)`
+  - `components/layout/AppHeader.vue` — подключены `usePlayerStore` и `useUiStore`; hero данные теперь из стора; добавлена кнопка theme toggle (sun/moon SVG иконки)
+- **Decisions made**:
+  - CSS custom properties живут в `_theme.scss` — SCSS переменные остаются compile-time, var() используются там где нужен runtime toggle
+  - Accent цвета (`--color-accent-*`) одинаковы в обоих темах — покерная тема с золотом работает везде
+  - AppHeader подключён к playerStore — mock данные больше не хардкожены в компоненте
+  - `data-theme` на `<html>` — стандартный паттерн, позволяет CSS selectors работать без JS overhead
+- **Known issues**: нет
+- **Next recommended task**: P2-T01 (GameTable layout)

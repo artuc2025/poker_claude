@@ -35,10 +35,13 @@
 - [x] P1-T07: Types — все интерфейсы (выполнено в рамках P1-T06) (2026-03-28)
 - [x] P1-T08: Mock data: players, tables, tournaments, hands, cards (2026-03-28)
 - [x] P1-T09: Routing — все pages с placeholder контентом (2026-03-28)
+- [x] P1-T10: Dark theme + CSS custom properties (2026-03-28)
+
+### Current Phase: `PHASE_2 — Game Table`
 
 ### Current Task
 <!-- Формат: - [ ] TASK_ID: описание -->
-- [ ] P1-T10: Dark theme + CSS custom properties
+- [ ] P2-T01: GameTable layout — овальный стол с позициями игроков
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->
