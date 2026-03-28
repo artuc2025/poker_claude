@@ -4,6 +4,7 @@ import type { SeatState } from "@/types/game";
 import { useGameStore } from "@/stores/game";
 import { MOCK_HERO, MOCK_PLAYERS } from "@/data/mock/players";
 import PlayerSeat from "./PlayerSeat.vue";
+import PlayingCard from "./PlayingCard.vue";
 
 const props = defineProps<{
   table: Table;
@@ -91,7 +92,14 @@ onMounted(() => {
       <div class="game-table__felt">
         <div class="game-table__center">
           <div class="game-table__community">
-            <div v-for="n in 5" :key="n" class="game-table__card-slot" />
+            <template v-for="n in 5" :key="n">
+              <PlayingCard
+                v-if="gameStore.communityCards[n - 1]"
+                :card="gameStore.communityCards[n - 1]!"
+                size="md"
+              />
+              <div v-else class="game-table__card-slot" />
+            </template>
           </div>
           <div class="game-table__pot">
             <span class="game-table__pot-label">POT</span>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SeatState, SeatStatus } from '@/types/game'
+import PlayingCard from './PlayingCard.vue'
 
 const props = withDefaults(defineProps<{
   seat: SeatState | null
@@ -56,10 +57,20 @@ function formatStack(amount: number): string {
         </div>
       </div>
 
-      <!-- Hole cards placeholder — replaced in P2-T04 -->
       <div class="player-seat__cards">
-        <div class="player-seat__card-back" />
-        <div class="player-seat__card-back" />
+        <template v-if="seat.holeCards.length === 2">
+          <PlayingCard
+            v-for="card in seat.holeCards"
+            :key="card.id"
+            :card="card"
+            :face-down="!seat.isHero"
+            size="sm"
+          />
+        </template>
+        <template v-else>
+          <div class="player-seat__card-back" />
+          <div class="player-seat__card-back" />
+        </template>
       </div>
 
       <!-- Status overlay (fold / all-in / away) -->
