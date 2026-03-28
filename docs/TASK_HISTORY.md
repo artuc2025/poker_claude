@@ -68,3 +68,22 @@
   - P1-T02 считается выполненным — SCSS foundation создана в рамках P1-T01
 - **Known issues**: нет
 - **Next recommended task**: P1-T03 (UI Kit: BaseButton, BaseModal, BaseInput, BaseAvatar)
+
+---
+
+### P1-T03: UI Kit — BaseButton, BaseModal, BaseInput, BaseAvatar
+- **Date**: 2026-03-28
+- **Phase**: 1
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/ui/BaseButton.vue` — варианты primary/secondary/danger/ghost, размеры sm/md/lg, состояния disabled/loading со спиннером
+  - `components/ui/BaseModal.vue` — Teleport to body, backdrop click + Escape закрывают, слоты header/body/footer, transition анимация
+  - `components/ui/BaseInput.vue` — v-model, label, placeholder, error/hint, prefix/suffix слоты, размеры sm/md/lg, состояния focused/error/disabled
+  - `components/ui/BaseAvatar.vue` — src с fallback на инициалы, цвет фона из имени (детерминированный хэш), размеры xs-xl, online-dot, варианты circle/rounded
+- **Decisions made**:
+  - BaseModal использует `Teleport to="body"` — избегаем z-index проблем внутри вложенных stacking contexts
+  - Цвет fallback-аватара генерируется детерминированно из имени (hash) — один игрок всегда одного цвета
+  - BaseInput хранит `isFocused` локально для border highlight без лишних emit
+  - `color-mix()` используется для hover-эффектов (уже установлено в P1-T01)
+- **Known issues**: нет
+- **Next recommended task**: P1-T04 (BaseToast, BaseBadge, BaseLoader, BaseTooltip)
