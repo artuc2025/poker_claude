@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // Collapsible sidebar with quick navigation and active tables list
+import { useLobbyStore } from '@/stores/lobby'
 
 // 1. Props
 const props = withDefaults(defineProps<{
@@ -19,11 +20,8 @@ const mainLinks = [
   { label: 'Профиль',   to: '/profile/me',      icon: 'M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z' },
 ]
 
-// Mock active tables (будет из stores/lobby.ts)
-const activeTables = [
-  { id: '1', name: 'NL100 — Стол 4', players: 6 },
-  { id: '2', name: 'NL25 — Стол 11', players: 4 },
-]
+const lobbyStore = useLobbyStore()
+const activeTables = computed(() => lobbyStore.activeTables)
 
 const route = useRoute()
 const isActive = (to: string) =>
@@ -91,7 +89,7 @@ function toggle() {
         <Transition name="sidebar-label">
           <div v-if="!collapsed" class="app-sidebar__table-info">
             <span class="app-sidebar__table-name">{{ table.name }}</span>
-            <span class="app-sidebar__table-players">{{ table.players }}/9</span>
+            <span class="app-sidebar__table-players">{{ table.playersCount }}/{{ table.config.maxPlayers }}</span>
           </div>
         </Transition>
       </NuxtLink>
@@ -111,8 +109,8 @@ $sidebar-collapsed-width: 52px;
   min-height: 0;
   flex-shrink: 0;
 
-  background: $color-bg-secondary;
-  border-right: 1px solid $color-border;
+  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-border-primary);
   padding: $spacing-md 0;
   transition: width 0.25s ease;
   overflow: hidden;
@@ -128,17 +126,17 @@ $sidebar-collapsed-width: 52px;
     width: 28px;
     height: 28px;
     margin: 0 $spacing-sm $spacing-sm;
-    border: 1px solid $color-border;
+    border: 1px solid var(--color-border-primary);
     border-radius: $border-radius-sm;
     background: transparent;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     cursor: pointer;
     flex-shrink: 0;
     transition: background $transition-fast, color $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: $color-text-primary;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
     }
   }
 
@@ -165,7 +163,7 @@ $sidebar-collapsed-width: 52px;
     padding: 8px 10px;
     border-radius: $border-radius-md;
     text-decoration: none;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-family: $font-body;
     font-size: 13px;
     font-weight: 500;
@@ -173,8 +171,8 @@ $sidebar-collapsed-width: 52px;
     transition: background $transition-fast, color $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: $color-text-primary;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
     }
 
     &--active {
@@ -191,7 +189,7 @@ $sidebar-collapsed-width: 52px;
   // --- Divider ---
   &__divider {
     height: 1px;
-    background: $color-border;
+    background: var(--color-border-primary);
     margin: $spacing-md $spacing-sm;
     flex-shrink: 0;
   }
@@ -207,7 +205,7 @@ $sidebar-collapsed-width: 52px;
   &__section-title {
     font-size: 10px;
     font-weight: 600;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.08em;
     padding: 0 10px 4px;
@@ -224,7 +222,7 @@ $sidebar-collapsed-width: 52px;
     text-decoration: none;
     transition: background $transition-fast;
 
-    &:hover { background: rgba(255, 255, 255, 0.06); }
+    &:hover { background: var(--color-bg-tertiary); }
   }
 
   &__table-dot {
@@ -244,14 +242,14 @@ $sidebar-collapsed-width: 52px;
 
   &__table-name {
     font-size: 12px;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     font-family: $font-body;
     @include text-ellipsis;
   }
 
   &__table-players {
     font-size: 10px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-family: $font-mono;
   }
 }

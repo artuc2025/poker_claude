@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { usePlayerStore } from '@/stores/player'
-import { MOCK_PLAYERS, MOCK_HERO } from '@/data/mock/players'
+import { MOCK_HERO } from '@/data/mock/players'
 import { MOCK_HAND_HISTORY } from '@/data/mock/hands'
+import { useFormatters } from '@/composables/useFormatters'
 import type { Player } from '@/types/player'
 
 definePageMeta({ layout: 'default' })
@@ -15,7 +16,7 @@ const profile = computed<Player | null>(() => {
   if (profileId.value === 'me' || profileId.value === MOCK_HERO.id) {
     return playerStore.currentPlayer
   }
-  return MOCK_PLAYERS.find((p) => p.id === profileId.value) ?? null
+  return playerStore.players.find((p) => p.id === profileId.value) ?? null
 })
 
 const isHero = computed(() =>
@@ -32,9 +33,7 @@ onMounted(() => {
   }
 })
 
-function formatResult(result: number): string {
-  return result >= 0 ? `+$${result}` : `-$${Math.abs(result)}`
-}
+const { formatResult } = useFormatters()
 </script>
 
 <template>
@@ -140,13 +139,13 @@ function formatResult(result: number): string {
   }
 
   &__back {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     text-decoration: none;
     font-size: $font-size-sm;
     white-space: nowrap;
     transition: color $transition-fast;
 
-    &:hover { color: $color-text-primary; }
+    &:hover { color: var(--color-text-primary); }
   }
 
   &__identity {
@@ -161,7 +160,7 @@ function formatResult(result: number): string {
     height: 56px;
     border-radius: 50%;
     background: $color-accent-gold;
-    color: $color-bg-primary;
+    color: var(--color-bg-primary);
     font-family: $font-display;
     font-size: $font-size-xl;
     font-weight: 700;
@@ -171,7 +170,7 @@ function formatResult(result: number): string {
   &__name {
     font-family: $font-display;
     font-size: $font-size-2xl;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   &__level {
@@ -188,9 +187,9 @@ function formatResult(result: number): string {
   }
 
   &__card {
-    background: $color-bg-secondary;
+    background: var(--color-bg-secondary);
     border-radius: $border-radius-md;
-    border: 1px solid $color-border-primary;
+    border: 1px solid var(--color-border-primary);
     padding: $spacing-5;
 
     &--wide {
@@ -201,13 +200,13 @@ function formatResult(result: number): string {
   &__section-title {
     font-family: $font-display;
     font-size: $font-size-lg;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     margin-bottom: $spacing-4;
   }
 
   &__placeholder {
     font-size: $font-size-xs;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     margin-bottom: $spacing-3;
   }
 
@@ -217,9 +216,9 @@ function formatResult(result: number): string {
     flex-direction: column;
     gap: $spacing-2;
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
 
-    strong { color: $color-text-primary; }
+    strong { color: var(--color-text-primary); }
   }
 
   &__bankroll {
@@ -239,10 +238,10 @@ function formatResult(result: number): string {
     align-items: center;
     gap: $spacing-2;
     padding: $spacing-2 $spacing-3;
-    background: $color-bg-tertiary;
+    background: var(--color-bg-tertiary);
     border-radius: $border-radius-sm;
     font-size: $font-size-sm;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
 
     &--locked {
       opacity: 0.35;
@@ -262,16 +261,16 @@ function formatResult(result: number): string {
   &__hand {
     @include flex-between;
     padding: $spacing-2 0;
-    border-bottom: 1px solid $color-border-primary;
+    border-bottom: 1px solid var(--color-border-primary);
     font-size: $font-size-sm;
   }
 
-  &__hand-table { color: $color-text-secondary; flex: 1; }
+  &__hand-table { color: var(--color-text-secondary); flex: 1; }
 
   &__hand-cards {
     font-family: $font-mono;
     font-size: $font-size-xs;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     flex: 2;
     padding: 0 $spacing-3;
   }
@@ -289,7 +288,7 @@ function formatResult(result: number): string {
     flex-direction: column;
     gap: $spacing-4;
     min-height: 400px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
 
     a {
       color: $color-accent-blue;

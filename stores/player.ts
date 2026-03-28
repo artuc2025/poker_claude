@@ -3,6 +3,7 @@ import type { Player, PlayerStats, HandHistoryEntry, Achievement } from '@/types
 
 interface PlayerState {
   currentPlayer: Player | null
+  players: Player[]
   isLoading: boolean
 }
 
@@ -19,6 +20,7 @@ const defaultStats: PlayerStats = {
 export const usePlayerStore = defineStore('player', {
   state: (): PlayerState => ({
     currentPlayer: null,
+    players: [],
     isLoading: false,
   }),
 
@@ -46,17 +48,15 @@ export const usePlayerStore = defineStore('player', {
     unlockedAchievements(): Achievement[] {
       return this.achievements.filter((a) => a.unlockedAt !== null)
     },
-
-    winRate(): number {
-      const { handsPlayed, handsWon } = this.stats
-      if (handsPlayed === 0) return 0
-      return Math.round((handsWon / handsPlayed) * 100)
-    },
   },
 
   actions: {
     setPlayer(player: Player) {
       this.currentPlayer = player
+    },
+
+    setPlayers(players: Player[]) {
+      this.players = players
     },
 
     updateBankroll(delta: number) {
@@ -99,6 +99,7 @@ export const usePlayerStore = defineStore('player', {
 
     $reset() {
       this.currentPlayer = null
+      this.players = []
       this.isLoading = false
     },
   },

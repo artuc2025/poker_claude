@@ -52,16 +52,16 @@ $arrow-size: 5px;
     padding: 5px 9px;
     max-width: 220px;
 
-    background: color-mix(in srgb, $color-bg-secondary 60%, black);
-    border: 1px solid $color-border;
+    background: color-mix(in srgb, var(--color-bg-secondary) 60%, black);
+    border: 1px solid var(--color-border-primary);
     border-radius: $border-radius-sm;
-    box-shadow: $shadow-md;
+    box-shadow: var(--shadow-md);
     backdrop-filter: blur(6px);
 
     font-family: $font-body;
     font-size: 11px;
     font-weight: 500;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     white-space: nowrap;
     pointer-events: none;
 
@@ -89,7 +89,7 @@ $arrow-size: 5px;
         top: 100%;
         left: 50%;
         transform: translateX(-50%);
-        border-top-color: $color-border;
+        border-top-color: var(--color-border-primary);
       }
     }
 
@@ -109,7 +109,7 @@ $arrow-size: 5px;
         bottom: 100%;
         left: 50%;
         transform: translateX(-50%);
-        border-bottom-color: $color-border;
+        border-bottom-color: var(--color-border-primary);
       }
     }
 
@@ -129,7 +129,7 @@ $arrow-size: 5px;
         left: 100%;
         top: 50%;
         transform: translateY(-50%);
-        border-left-color: $color-border;
+        border-left-color: var(--color-border-primary);
       }
     }
 
@@ -149,7 +149,7 @@ $arrow-size: 5px;
         right: 100%;
         top: 50%;
         transform: translateY(-50%);
-        border-right-color: $color-border;
+        border-right-color: var(--color-border-primary);
       }
     }
 

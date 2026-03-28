@@ -58,7 +58,7 @@ withDefaults(defineProps<{
   &--spinner {
     border-radius: 50%;
     border-style: solid;
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: var(--color-border-primary);
     animation: loader-spin 0.75s linear infinite;
 
     // Sizes
@@ -68,8 +68,8 @@ withDefaults(defineProps<{
 
     // Colors
     &.base-loader--gold  { border-top-color: $color-accent-gold; }
-    &.base-loader--white { border-top-color: $color-text-primary; }
-    &.base-loader--muted { border-top-color: $color-text-secondary; }
+    &.base-loader--white { border-top-color: var(--color-text-primary); }
+    &.base-loader--muted { border-top-color: var(--color-text-secondary); }
   }
 
   // --- Dots ---
@@ -83,8 +83,8 @@ withDefaults(defineProps<{
 
     // Colors
     &.base-loader--gold  .base-loader__dot { background: $color-accent-gold; }
-    &.base-loader--white .base-loader__dot { background: $color-text-primary; }
-    &.base-loader--muted .base-loader__dot { background: $color-text-secondary; }
+    &.base-loader--white .base-loader__dot { background: var(--color-text-primary); }
+    &.base-loader--muted .base-loader__dot { background: var(--color-text-secondary); }
   }
 
   &__dot {
@@ -100,9 +100,9 @@ withDefaults(defineProps<{
     display: block;
     background: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.04) 25%,
-      rgba(255, 255, 255, 0.1) 50%,
-      rgba(255, 255, 255, 0.04) 75%
+      var(--color-bg-secondary) 25%,
+      var(--color-bg-tertiary) 50%,
+      var(--color-bg-secondary) 75%
     );
     background-size: 200% 100%;
     border-radius: $border-radius-sm;

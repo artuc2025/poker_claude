@@ -88,8 +88,8 @@
 // -----------------------------------------------------------------------------
 
 body {
-  background: $color-bg-primary;
-  color: $color-text-primary;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
   font-family: $font-body;
   font-size: $font-size-md;
   font-weight: $font-weight-regular;

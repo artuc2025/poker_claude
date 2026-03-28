@@ -20,6 +20,7 @@ interface LobbyState {
   sortBy: LobbySortBy
   sortAscending: boolean
   selectedTableId: string | null
+  activeTableIds: string[]
   isLoading: boolean
   onlineCount: number
 }
@@ -42,6 +43,7 @@ export const useLobbyStore = defineStore('lobby', {
     sortBy: 'players',
     sortAscending: false,
     selectedTableId: null,
+    activeTableIds: [],
     isLoading: false,
     onlineCount: 0,
   }),
@@ -98,6 +100,12 @@ export const useLobbyStore = defineStore('lobby', {
     selectedTable(state): Table | null {
       return state.tables.find((t) => t.id === state.selectedTableId) ?? null
     },
+
+    activeTables(state): Table[] {
+      return state.activeTableIds
+        .map((id) => state.tables.find((t) => t.id === id))
+        .filter((t): t is Table => t !== undefined)
+    },
   },
 
   actions: {
@@ -124,6 +132,16 @@ export const useLobbyStore = defineStore('lobby', {
 
     setOnlineCount(count: number) {
       this.onlineCount = count
+    },
+
+    addActiveTable(id: string) {
+      if (!this.activeTableIds.includes(id)) {
+        this.activeTableIds.push(id)
+      }
+    },
+
+    removeActiveTable(id: string) {
+      this.activeTableIds = this.activeTableIds.filter((t) => t !== id)
     },
   },
 })

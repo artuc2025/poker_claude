@@ -102,7 +102,7 @@ function onBlur(event: FocusEvent) {
     font-family: $font-body;
     font-size: 12px;
     font-weight: 500;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
@@ -110,8 +110,8 @@ function onBlur(event: FocusEvent) {
   &__field {
     display: flex;
     align-items: center;
-    background: $color-bg-primary;
-    border: 1px solid $color-border;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border-primary);
     border-radius: $border-radius-md;
     transition: border-color $transition-fast, box-shadow $transition-fast;
     overflow: hidden;
@@ -121,7 +121,7 @@ function onBlur(event: FocusEvent) {
   &__suffix {
     @include flex-center;
     padding: 0 $spacing-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     flex-shrink: 0;
   }
 
@@ -131,11 +131,11 @@ function onBlur(event: FocusEvent) {
     background: transparent;
     border: none;
     outline: none;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     font-family: $font-body;
 
     &::placeholder {
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
       opacity: 0.6;
     }
 
@@ -153,7 +153,7 @@ function onBlur(event: FocusEvent) {
 
   &__hint {
     font-size: 11px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 
   // --- Sizes ---

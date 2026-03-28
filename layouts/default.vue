@@ -2,8 +2,9 @@
 import AppHeader from '@/components/layout/AppHeader.vue'
 import AppSidebar from '@/components/layout/AppSidebar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import { useUiStore } from '@/stores/ui'
 
-const sidebarCollapsed = ref(false)
+const uiStore = useUiStore()
 </script>
 
 <template>
@@ -11,7 +12,10 @@ const sidebarCollapsed = ref(false)
     <AppHeader />
 
     <div class="default-layout__body">
-      <AppSidebar v-model:collapsed="sidebarCollapsed" />
+      <AppSidebar
+        :collapsed="uiStore.sidebarCollapsed"
+        @update:collapsed="uiStore.setSidebarCollapsed"
+      />
 
       <main class="default-layout__main">
         <slot />

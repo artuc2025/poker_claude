@@ -81,8 +81,8 @@ function onImgError() {
   overflow: hidden;
   flex-shrink: 0;
 
-  background: $color-bg-secondary;
-  border: 1px solid $color-border;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
 
   // --- Sizes ---
   &--xs { width: 24px; height: 24px; font-size: 10px;
@@ -125,7 +125,7 @@ function onImgError() {
     right: 0;
     border-radius: 50%;
     background: $color-accent-green;
-    border: 2px solid $color-bg-primary;
+    border: 2px solid var(--color-bg-primary);
     box-shadow: 0 0 6px rgba($color-accent-green, 0.6);
   }
 }

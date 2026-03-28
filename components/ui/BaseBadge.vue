@@ -31,7 +31,7 @@ const classes = computed(() => [
 
 <style lang="scss" scoped>
 $badge-colors: (
-  'default': $color-text-secondary,
+  'default': var(--color-text-secondary),
   'success': $color-accent-green,
   'error':   $color-accent-red,
   'warning': $color-accent-gold,
@@ -82,8 +82,8 @@ $badge-colors: (
 
   // 'default' gets a neutral bg override
   &--default {
-    background: rgba(255, 255, 255, 0.08);
-    color: $color-text-secondary;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
   }
 
   // --- Outline modifier ---

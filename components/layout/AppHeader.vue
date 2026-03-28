@@ -4,6 +4,7 @@ import BaseAvatar from '@/components/ui/BaseAvatar.vue'
 import BaseBadge from '@/components/ui/BaseBadge.vue'
 import { usePlayerStore } from '@/stores/player'
 import { useUiStore } from '@/stores/ui'
+import { useFormatters } from '@/composables/useFormatters'
 
 // 2. Stores
 const playerStore = usePlayerStore()
@@ -28,9 +29,8 @@ const route = useRoute()
 const isActive = (to: string) =>
   to === '/' ? route.path === '/' : route.path.startsWith(to)
 
-// 4. Bankroll formatter
-const formatBankroll = (val: number) =>
-  val >= 1_000 ? `$${(val / 1_000).toFixed(1)}k` : `$${val}`
+// 4. Formatters
+const { formatBankroll } = useFormatters()
 </script>
 
 <template>
@@ -113,8 +113,8 @@ $header-height: 56px;
   z-index: $z-index-header;
   height: $header-height;
 
-  background: color-mix(in srgb, $color-bg-secondary 95%, transparent);
-  border-bottom: 1px solid $color-border;
+  background: color-mix(in srgb, var(--color-bg-secondary) 95%, transparent);
+  border-bottom: 1px solid var(--color-border-primary);
   backdrop-filter: blur(12px);
 
   &__inner {
@@ -131,7 +131,7 @@ $header-height: 56px;
   &__logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: $spacing-2;
     text-decoration: none;
     flex-shrink: 0;
 
@@ -145,7 +145,7 @@ $header-height: 56px;
       font-family: $font-display;
       font-size: 20px;
       letter-spacing: 0.08em;
-      color: $color-text-primary;
+      color: var(--color-text-primary);
     }
   }
 
@@ -160,19 +160,19 @@ $header-height: 56px;
   &__nav-link {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 12px;
+    gap: $spacing-1;
+    padding: $spacing-1 $spacing-3;
     border-radius: $border-radius-md;
     font-family: $font-body;
     font-size: 13px;
     font-weight: 500;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     text-decoration: none;
     transition: background $transition-fast, color $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: $color-text-primary;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
     }
 
     &--active {
@@ -202,7 +202,7 @@ $header-height: 56px;
 
     &-label {
       font-size: 10px;
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.06em;
     }
@@ -219,10 +219,10 @@ $header-height: 56px;
     @include flex-center;
     width: 28px;
     height: 28px;
-    border: 1px solid $color-border;
+    border: 1px solid var(--color-border-primary);
     border-radius: $border-radius-sm;
     background: transparent;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: background $transition-fast, color $transition-fast, border-color $transition-fast;
 
@@ -237,10 +237,10 @@ $header-height: 56px;
     @include flex-center;
     width: 28px;
     height: 28px;
-    border: 1px solid $color-border;
+    border: 1px solid var(--color-border-primary);
     border-radius: $border-radius-sm;
     background: transparent;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: background $transition-fast, color $transition-fast, border-color $transition-fast;
 

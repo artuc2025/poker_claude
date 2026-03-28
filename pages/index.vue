@@ -2,7 +2,7 @@
 import { useLobbyStore } from '@/stores/lobby'
 import { usePlayerStore } from '@/stores/player'
 import { MOCK_TABLES } from '@/data/mock/tables'
-import { MOCK_HERO } from '@/data/mock/players'
+import { MOCK_HERO, MOCK_PLAYERS } from '@/data/mock/players'
 import { MOCK_HAND_HISTORY } from '@/data/mock/hands'
 
 definePageMeta({ layout: 'default' })
@@ -15,10 +15,8 @@ onMounted(() => {
   lobbyStore.setOnlineCount(1247)
 
   if (!playerStore.isLoggedIn) {
-    playerStore.setPlayer({
-      ...MOCK_HERO,
-      handHistory: MOCK_HAND_HISTORY,
-    })
+    playerStore.setPlayer({ ...MOCK_HERO, handHistory: MOCK_HAND_HISTORY })
+    playerStore.setPlayers(MOCK_PLAYERS)
   }
 })
 </script>
@@ -65,16 +63,16 @@ onMounted(() => {
   &__title {
     font-family: $font-display;
     font-size: $font-size-3xl;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   &__online {
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 
   &__placeholder {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-size: $font-size-sm;
     margin-bottom: $spacing-4;
   }
@@ -88,9 +86,9 @@ onMounted(() => {
   }
 
   &__item {
-    background: $color-bg-secondary;
+    background: var(--color-bg-secondary);
     border-radius: $border-radius-md;
-    border: 1px solid $color-border-primary;
+    border: 1px solid var(--color-border-primary);
   }
 
   &__link {
@@ -100,18 +98,18 @@ onMounted(() => {
     transition: background $transition-fast;
 
     &:hover {
-      background: $color-bg-tertiary;
+      background: var(--color-bg-tertiary);
     }
   }
 
   &__name {
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     font-weight: 500;
   }
 
   &__meta {
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-family: $font-mono;
   }
 }

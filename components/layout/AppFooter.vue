@@ -40,8 +40,8 @@ const onlineCount = 1_284
 <style lang="scss" scoped>
 .app-footer {
   height: 40px;
-  border-top: 1px solid $color-border;
-  background: $color-bg-secondary;
+  border-top: 1px solid var(--color-border-primary);
+  background: var(--color-bg-secondary);
   flex-shrink: 0;
 
   &__inner {
@@ -57,7 +57,7 @@ const onlineCount = 1_284
 
   &__copy {
     font-size: 11px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     white-space: nowrap;
     font-family: $font-body;
   }
@@ -70,12 +70,12 @@ const onlineCount = 1_284
 
   &__link {
     font-size: 11px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     text-decoration: none;
     font-family: $font-body;
     transition: color $transition-fast;
 
-    &:hover { color: $color-text-primary; }
+    &:hover { color: var(--color-text-primary); }
   }
 
   &__online {
@@ -96,7 +96,7 @@ const onlineCount = 1_284
   &__online-count {
     font-size: 11px;
     font-family: $font-mono;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 }
 </style>

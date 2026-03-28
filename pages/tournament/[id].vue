@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useTournamentStore } from '@/stores/tournament'
 import { useUiStore } from '@/stores/ui'
+import { useFormatters } from '@/composables/useFormatters'
 
 definePageMeta({ layout: 'default' })
 
@@ -24,13 +25,7 @@ onUnmounted(() => {
 })
 
 const t = computed(() => tournamentStore.currentTournament)
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleString('en-US', {
-    month: 'short', day: 'numeric',
-    hour: '2-digit', minute: '2-digit',
-  })
-}
+const { formatDate } = useFormatters()
 </script>
 
 <template>
@@ -124,19 +119,19 @@ function formatDate(iso: string): string {
   }
 
   &__back {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     text-decoration: none;
     font-size: $font-size-sm;
     transition: color $transition-fast;
     white-space: nowrap;
 
-    &:hover { color: $color-text-primary; }
+    &:hover { color: var(--color-text-primary); }
   }
 
   &__title {
     font-family: $font-display;
     font-size: $font-size-2xl;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   &__grid {
@@ -146,16 +141,16 @@ function formatDate(iso: string): string {
   }
 
   &__card {
-    background: $color-bg-secondary;
+    background: var(--color-bg-secondary);
     border-radius: $border-radius-md;
-    border: 1px solid $color-border-primary;
+    border: 1px solid var(--color-border-primary);
     padding: $spacing-5;
   }
 
   &__section-title {
     font-family: $font-display;
     font-size: $font-size-lg;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     margin-bottom: $spacing-4;
   }
 
@@ -165,15 +160,15 @@ function formatDate(iso: string): string {
     flex-direction: column;
     gap: $spacing-2;
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     margin-bottom: $spacing-4;
 
-    strong { color: $color-text-primary; }
+    strong { color: var(--color-text-primary); }
   }
 
   &__placeholder {
     font-size: $font-size-xs;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     margin-bottom: $spacing-3;
   }
 
@@ -186,10 +181,10 @@ function formatDate(iso: string): string {
     th, td {
       text-align: left;
       padding: $spacing-1 $spacing-2;
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
     }
 
-    th { color: $color-text-primary; font-weight: 600; }
+    th { color: var(--color-text-primary); font-weight: 600; }
 
     &-row--active td {
       color: $color-accent-gold;
@@ -208,7 +203,7 @@ function formatDate(iso: string): string {
     @include flex-between;
     font-size: $font-size-sm;
     padding: $spacing-2 0;
-    border-bottom: 1px solid $color-border-primary;
+    border-bottom: 1px solid var(--color-border-primary);
 
     &--eliminated {
       opacity: 0.4;
@@ -218,11 +213,11 @@ function formatDate(iso: string): string {
 
   &__place {
     font-family: $font-mono;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     width: 32px;
   }
 
-  &__player-name { color: $color-text-primary; flex: 1; padding: 0 $spacing-3; }
+  &__player-name { color: var(--color-text-primary); flex: 1; padding: 0 $spacing-3; }
 
   &__chips {
     font-family: $font-mono;
@@ -232,7 +227,7 @@ function formatDate(iso: string): string {
   &__loading {
     @include flex-center;
     min-height: 400px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 }
 </style>

@@ -20,10 +20,13 @@ onMounted(() => {
   if (!table.value) {
     uiStore.showToast('Table not found', 'error')
     navigateTo('/')
+  } else {
+    lobbyStore.addActiveTable(tableId.value)
   }
 })
 
 onUnmounted(() => {
+  lobbyStore.removeActiveTable(tableId.value)
   gameStore.$reset()
 })
 </script>
@@ -70,25 +73,25 @@ onUnmounted(() => {
   }
 
   &__back {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     text-decoration: none;
     font-size: $font-size-sm;
     transition: color $transition-fast;
 
     &:hover {
-      color: $color-text-primary;
+      color: var(--color-text-primary);
     }
   }
 
   &__title {
     font-family: $font-display;
     font-size: $font-size-2xl;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   &__meta {
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-family: $font-mono;
     margin-left: auto;
   }
@@ -101,11 +104,11 @@ onUnmounted(() => {
     background: $color-bg-table;
     border-radius: $border-radius-xl;
     border: 4px solid color-mix(in srgb, $color-bg-table-felt 60%, transparent);
-    box-shadow: $shadow-xl;
+    box-shadow: var(--shadow-xl);
   }
 
   &__placeholder {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     font-size: $font-size-lg;
   }
 
@@ -120,7 +123,7 @@ onUnmounted(() => {
   &__loading {
     @include flex-center;
     min-height: 400px;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 }
 </style>

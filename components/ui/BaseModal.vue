@@ -42,7 +42,7 @@ function onKeydown(event: KeyboardEvent) {
 watch(() => props.modelValue, (open) => {
   if (open) document.addEventListener('keydown', onKeydown)
   else document.removeEventListener('keydown', onKeydown)
-})
+}, { immediate: true })
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
@@ -109,10 +109,10 @@ onUnmounted(() => {
     max-height: calc(100vh - #{$spacing-xl} * 2);
     overflow: hidden;
 
-    background: $color-bg-secondary;
-    border: 1px solid $color-border;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-primary);
     border-radius: $border-radius-lg;
-    box-shadow: $shadow-xl;
+    box-shadow: var(--shadow-xl);
 
     &--sm { width: min(400px, 90vw); }
     &--md { width: min(560px, 90vw); }
@@ -124,14 +124,14 @@ onUnmounted(() => {
     align-items: center;
     justify-content: space-between;
     padding: $spacing-md $spacing-lg;
-    border-bottom: 1px solid $color-border;
+    border-bottom: 1px solid var(--color-border-primary);
     flex-shrink: 0;
   }
 
   &__title {
     font-family: $font-display;
     font-size: 18px;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     letter-spacing: 0.05em;
   }
 
@@ -142,13 +142,13 @@ onUnmounted(() => {
     border: none;
     border-radius: $border-radius-sm;
     background: transparent;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: background $transition-fast, color $transition-fast;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: $color-text-primary;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
     }
 
     @include focus-ring;
@@ -167,7 +167,7 @@ onUnmounted(() => {
     justify-content: flex-end;
     gap: $spacing-sm;
     padding: $spacing-md $spacing-lg;
-    border-top: 1px solid $color-border;
+    border-top: 1px solid var(--color-border-primary);
     flex-shrink: 0;
   }
 }

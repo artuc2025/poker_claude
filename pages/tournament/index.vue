@@ -78,17 +78,17 @@ const statusColor: Record<string, string> = {
   &__title {
     font-family: $font-display;
     font-size: $font-size-3xl;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
   }
 
   &__count {
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 
   &__placeholder {
     font-size: $font-size-sm;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     margin-bottom: $spacing-4;
   }
 
@@ -99,9 +99,9 @@ const statusColor: Record<string, string> = {
   }
 
   &__item {
-    background: $color-bg-secondary;
+    background: var(--color-bg-secondary);
     border-radius: $border-radius-md;
-    border: 1px solid $color-border-primary;
+    border: 1px solid var(--color-border-primary);
     padding: $spacing-4;
     text-decoration: none;
     display: flex;
@@ -110,7 +110,7 @@ const statusColor: Record<string, string> = {
     transition: background $transition-fast;
 
     &:hover {
-      background: $color-bg-tertiary;
+      background: var(--color-bg-tertiary);
     }
   }
 
@@ -119,7 +119,7 @@ const statusColor: Record<string, string> = {
   }
 
   &__name {
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     font-weight: 500;
   }
 
@@ -132,7 +132,7 @@ const statusColor: Record<string, string> = {
     &--green  { color: $color-accent-green; }
     &--gold   { color: $color-accent-gold; }
     &--red    { color: $color-accent-red; }
-    &--muted  { color: $color-text-secondary; }
+    &--muted  { color: var(--color-text-secondary); }
   }
 
   &__item-meta {
@@ -140,7 +140,7 @@ const statusColor: Record<string, string> = {
     gap: $spacing-4;
     font-family: $font-mono;
     font-size: $font-size-xs;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
   }
 }
 </style>

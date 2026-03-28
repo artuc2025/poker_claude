@@ -102,7 +102,7 @@ function handleClick(event: MouseEvent) {
   // --- Variants ---
   &--primary {
     background: $color-accent-gold;
-    color: $color-text-inverse;
+    color: var(--color-text-inverse);
     border-color: $color-accent-gold;
 
     &:hover:not(.base-button--disabled):not(.base-button--loading) {
@@ -117,13 +117,13 @@ function handleClick(event: MouseEvent) {
   }
 
   &--secondary {
-    background: $color-bg-secondary;
-    color: $color-text-primary;
-    border-color: $color-border;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-primary);
 
     &:hover:not(.base-button--disabled):not(.base-button--loading) {
-      background: color-mix(in srgb, $color-bg-secondary 80%, white);
-      border-color: $color-text-secondary;
+      background: color-mix(in srgb, var(--color-bg-secondary) 80%, white);
+      border-color: var(--color-text-secondary);
     }
   }
 
@@ -145,12 +145,12 @@ function handleClick(event: MouseEvent) {
 
   &--ghost {
     background: transparent;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     border-color: transparent;
 
     &:hover:not(.base-button--disabled):not(.base-button--loading) {
-      background: rgba(255, 255, 255, 0.06);
-      color: $color-text-primary;
+      background: var(--color-bg-tertiary);
+      color: var(--color-text-primary);
     }
   }
 

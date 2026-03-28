@@ -105,11 +105,11 @@ $toast-colors: (
   max-width: 400px;
   padding: $spacing-sm $spacing-md;
 
-  background: $color-bg-secondary;
-  border: 1px solid $color-border;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
   border-left-width: 3px;
   border-radius: $border-radius-md;
-  box-shadow: $shadow-lg;
+  box-shadow: var(--shadow-lg);
 
   // Enter animation
   opacity: 0;
@@ -139,7 +139,7 @@ $toast-colors: (
     flex: 1;
     font-family: $font-body;
     font-size: 13px;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     line-height: 1.4;
   }
 
@@ -151,11 +151,11 @@ $toast-colors: (
     border: none;
     border-radius: $border-radius-sm;
     background: transparent;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: background $transition-fast;
 
-    &:hover { background: rgba(255, 255, 255, 0.08); }
+    &:hover { background: var(--color-bg-tertiary); }
   }
 
   &__progress {
@@ -164,7 +164,7 @@ $toast-colors: (
     left: 0;
     right: 0;
     height: 2px;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-bg-tertiary);
   }
 
   &__progress-bar {
