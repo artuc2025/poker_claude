@@ -1,17 +1,15 @@
 <script setup lang="ts">
 import type { SeatState, SeatStatus } from '@/types/game'
 import CardHand from '@/components/game/CardHand.vue'
-import { formatStack } from '@/utils/format'
+import ChipStack from '@/components/game/ChipStack.vue'
 
 const props = withDefaults(defineProps<{
   seat: SeatState | null
   seatIndex: number
   playerName?: string
-  isDealer?: boolean
   isActive?: boolean
 }>(), {
   playerName: '',
-  isDealer: false,
   isActive: false,
 })
 
@@ -52,7 +50,7 @@ const statusLabel = computed(() =>
         />
         <div class="player-seat__info">
           <span class="player-seat__name">{{ playerName }}</span>
-          <span class="player-seat__stack">{{ formatStack(seat.stackSize) }}</span>
+          <ChipStack :amount="seat.stackSize" />
         </div>
       </div>
 
@@ -67,10 +65,7 @@ const statusLabel = computed(() =>
         {{ statusLabel }}
       </div>
 
-      <!-- Dealer button -->
-      <span v-if="isDealer" class="player-seat__dealer">D</span>
-
-      <!-- Active timer bar -->
+<!-- Active timer bar -->
       <div v-if="isActive" class="player-seat__timer-bar" />
     </template>
 
@@ -162,13 +157,6 @@ $seat-h: 88px;
     max-width: 64px;
   }
 
-  &__stack {
-    font-family: $font-mono;
-    font-size: $font-size-xs;
-    color: $color-accent-gold;
-    line-height: 1;
-  }
-
   &__cards {
     margin-top: auto;
   }
@@ -184,23 +172,6 @@ $seat-h: 88px;
     letter-spacing: 0.08em;
     color: var(--color-text-primary);
     pointer-events: none;
-  }
-
-  &__dealer {
-    position: absolute;
-    top: -9px;
-    right: -9px;
-    width: 20px;
-    height: 20px;
-    border-radius: $radius-full;
-    background: $color-accent-gold;
-    color: #0d1117;
-    font-family: $font-display;
-    font-size: 11px;
-    font-weight: $font-weight-bold;
-    @include flex-center;
-    box-shadow: var(--shadow-sm);
-    z-index: $z-index-raised;
   }
 
   &__timer-bar {

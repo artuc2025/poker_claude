@@ -4,9 +4,12 @@ import type { SeatState } from "@/types/game";
 import { useGameStore } from "@/stores/game";
 import { MOCK_HERO, MOCK_PLAYERS } from "@/data/mock/players";
 import { shuffleDeck, buildDeck } from "@/data/mock/cards";
-import { formatStack } from "@/utils/format";
 import PlayerSeat from "@/components/game/PlayerSeat.vue";
 import CommunityCards from "@/components/game/CommunityCards.vue";
+import PotDisplay from "@/components/game/PotDisplay.vue";
+import DealerButton from "@/components/game/DealerButton.vue";
+import ActionPanel from "@/components/game/ActionPanel.vue";
+import type { PlayerAction } from "@/types/game";
 
 const props = defineProps<{
   table: Table;
@@ -37,6 +40,17 @@ function getSeatName(seat: SeatState): string {
   return PLAYER_NAME_MAP[seat.playerId] ?? "Unknown";
 }
 
+const isHeroTurn = computed(() => {
+  const hero = gameStore.heroSeat;
+  return hero !== null && gameStore.currentSeatIndex === hero.seatIndex;
+});
+
+function onHeroAction(action: PlayerAction, amount?: number) {
+  const hero = gameStore.heroSeat;
+  if (!hero) return;
+  gameStore.recordAction(action, hero.seatIndex, amount);
+  gameStore.advanceCurrentSeat();
+}
 
 onMounted(() => {
   if (gameStore.seats.some((s) => s !== null)) return;
@@ -105,12 +119,7 @@ onMounted(() => {
       <div class="game-table__felt">
         <div class="game-table__center">
           <CommunityCards />
-          <div class="game-table__pot">
-            <span class="game-table__pot-label">POT</span>
-            <span class="game-table__pot-amount">{{
-              formatStack(gameStore.totalPot)
-            }}</span>
-          </div>
+          <PotDisplay />
         </div>
       </div>
     </div>
@@ -127,10 +136,21 @@ onMounted(() => {
         :player-name="
           gameStore.seats[index] ? getSeatName(gameStore.seats[index]!) : ''
         "
-        :is-dealer="gameStore.dealerSeatIndex === index"
         :is-active="gameStore.currentSeatIndex === index"
       />
     </div>
+
+    <DealerButton
+      v-if="gameStore.dealerSeatIndex >= 0"
+      :seat-index="gameStore.dealerSeatIndex"
+      :seat-positions="SEAT_POSITIONS"
+    />
+
+    <Transition name="action-panel">
+      <div v-if="isHeroTurn" class="game-table__action-panel">
+        <ActionPanel @action="onHeroAction" />
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -182,29 +202,34 @@ onMounted(() => {
     z-index: $z-index-raised;
   }
 
-  &__pot {
-    @include flex-center;
-    gap: $spacing-2;
-  }
-
-  &__pot-label {
-    font-family: $font-display;
-    font-size: $font-size-sm;
-    color: var(--color-text-secondary);
-    letter-spacing: 0.12em;
-  }
-
-  &__pot-amount {
-    font-family: $font-display;
-    font-size: $font-size-xl;
-    color: $color-accent-gold;
-    letter-spacing: 0.05em;
-  }
-
   &__seat-pos {
     position: absolute;
     transform: translate(-50%, -50%);
     z-index: $z-index-raised;
   }
+
+  &__action-panel {
+    position: absolute;
+    bottom: -88px; // sits below the table ellipse
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: $z-index-overlay;
+  }
+}
+
+// Slide-up transition for ActionPanel
+.action-panel-enter-active {
+  transition: opacity 220ms ease, transform 220ms $transition-spring;
+}
+.action-panel-leave-active {
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+.action-panel-enter-from {
+  opacity: 0;
+  transform: translateX(-50%) translateY(16px);
+}
+.action-panel-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
 }
 </style>
