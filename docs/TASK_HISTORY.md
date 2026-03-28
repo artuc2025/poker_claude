@@ -248,3 +248,38 @@
   - Все цвета bg/text/border/shadow через `var(--color-*)` согласно новому правилу в RULES.md
 - **Known issues**: нет
 - **Next recommended task**: P2-T03 (Card system: SVG карты + CardFlip анимация)
+
+---
+
+### P2-T03: Card system — SVG карты + CardFlip анимация
+- **Date**: 2026-03-29
+- **Phase**: 2
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/game/PlayingCard.vue` — компонент карты: размеры sm/md, CSS 3D flip (rotateY 180deg), front (масть + ранг + Unicode символ, цвет red/dark) + back (тёмно-синий градиент с диагональным паттерном), prop faceDown + size
+  - `components/game/GameTable.vue` — community cards заменены на PlayingCard (md), пустые слоты остаются для ненасданных карт
+  - `components/game/PlayerSeat.vue` — hole cards используют PlayingCard (sm) вместо div-заглушек
+- **Decisions made**:
+  - Unicode suit symbols ♥♦♣♠ (не SVG paths) — достаточно для данного масштаба, нет зависимостей
+  - CSS 3D flip через `transform-style: preserve-3d` + `backface-visibility: hidden` — нативно, без GSAP
+  - Оппоненты всегда faceDown=true, герой — faceDown=false (face-up) на этапе P2-T03; peek-механика добавляется в P2-T04
+  - `!` non-null assertion для `communityCards[n-1]` — гарантировано v-if проверкой, TypeScript не сужает тип через v-if
+- **Known issues**: нет
+- **Next recommended task**: P2-T04 (CardHand: рука игрока, peek для hero)
+
+---
+
+### P2-T04: CardHand — рука игрока (2 карты, peek для hero)
+- **Date**: 2026-03-29
+- **Phase**: 2
+- **Status**: ✅ Done
+- **Files changed/created**:
+  - `components/game/CardHand.vue` — wrapper для 2 hole cards: fan-эффект (rotate ±4deg), peek механика для героя (hover → rotate ±8deg + translateY(-4px) + раскрытие карт), placeholders для ненасданных карт, "hover" hint label
+  - `components/game/PlayerSeat.vue` — inline-карты заменены на `<CardHand>`, удалены `$card-back-w/h` vars и `&__card-back` стили
+- **Decisions made**:
+  - Peek реализован через `peeking: ref(bool)` + mouseenter/mouseleave — не CSS-only, т.к. нужно переключать `faceDown` prop PlayingCard
+  - Герой: карты face-down по умолчанию, открываются на hover (privacy UX)
+  - Оппоненты: всегда face-down (до showdown — реализуется в P2-T16)
+  - CardHand управляет fan-трансформами напрямую через CSS классы `--left`/`--right`
+- **Known issues**: нет
+- **Next recommended task**: P2-T05 (CommunityCards: 5 карт с поэтапным открытием)

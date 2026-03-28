@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SeatState, SeatStatus } from '@/types/game'
-import PlayingCard from './PlayingCard.vue'
+import CardHand from './CardHand.vue'
 
 const props = withDefaults(defineProps<{
   seat: SeatState | null
@@ -57,21 +57,11 @@ function formatStack(amount: number): string {
         </div>
       </div>
 
-      <div class="player-seat__cards">
-        <template v-if="seat.holeCards.length === 2">
-          <PlayingCard
-            v-for="card in seat.holeCards"
-            :key="card.id"
-            :card="card"
-            :face-down="!seat.isHero"
-            size="sm"
-          />
-        </template>
-        <template v-else>
-          <div class="player-seat__card-back" />
-          <div class="player-seat__card-back" />
-        </template>
-      </div>
+      <CardHand
+        :cards="seat.holeCards"
+        :is-hero="seat.isHero"
+        class="player-seat__cards"
+      />
 
       <!-- Status overlay (fold / all-in / away) -->
       <div v-if="statusLabel" class="player-seat__status">
@@ -96,8 +86,6 @@ function formatStack(amount: number): string {
 <style lang="scss" scoped>
 $seat-w: 120px;
 $seat-h: 88px;
-$card-back-w: 22px;
-$card-back-h: 30px;
 
 .player-seat {
   position: relative;
@@ -183,18 +171,7 @@ $card-back-h: 30px;
   }
 
   &__cards {
-    display: flex;
-    gap: $spacing-1;
     margin-top: auto;
-  }
-
-  &__card-back {
-    width: $card-back-w;
-    height: $card-back-h;
-    border-radius: 3px;
-    background: linear-gradient(135deg, #1a3a5c 0%, #0d2137 100%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.04);
   }
 
   &__status {

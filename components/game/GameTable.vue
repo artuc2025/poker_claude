@@ -3,6 +3,7 @@ import type { Table } from "@/types/table";
 import type { SeatState } from "@/types/game";
 import { useGameStore } from "@/stores/game";
 import { MOCK_HERO, MOCK_PLAYERS } from "@/data/mock/players";
+import { shuffleDeck, buildDeck } from "@/data/mock/cards";
 import PlayerSeat from "./PlayerSeat.vue";
 import PlayingCard from "./PlayingCard.vue";
 
@@ -75,13 +76,26 @@ onMounted(() => {
     }
   }
 
+  // Deal 2 hole cards to each occupied seat from a shuffled deck
+  const deck = shuffleDeck(buildDeck());
+  let cardIdx = 0;
+  for (const seat of newSeats) {
+    if (seat) {
+      seat.holeCards = [deck[cardIdx++]!, deck[cardIdx++]!];
+    }
+  }
+
+  // Deal 3 community cards (flop) for visual testing
+  const communityCards = [deck[cardIdx++]!, deck[cardIdx++]!, deck[cardIdx++]!];
+
   gameStore.$patch({
     id: props.table.id,
     smallBlind: props.table.config.stakes.smallBlind,
     bigBlind: props.table.config.stakes.bigBlind,
-    phase: "waiting",
+    phase: "flop",
     dealerSeatIndex: 1,
     seats: newSeats,
+    communityCards,
   });
 });
 </script>

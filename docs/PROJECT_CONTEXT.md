@@ -46,8 +46,11 @@
 <!-- Формат: - [ ] TASK_ID: описание -->
 - [x] P2-T02: PlayerSeat — аватар, ник, стек, статус (2026-03-29)
 
+- [x] P2-T03: Card system — SVG карты + CardFlip анимация (2026-03-29)
+- [x] P2-T04: CardHand — рука игрока, peek для hero (2026-03-29)
+
 ### Current Task
-- [ ] P2-T03: Card system — SVG карты + CardFlip анимация
+- [ ] P2-T05: CommunityCards — 5 карт с поэтапным открытием
 
 ### Blocked / Issues
 <!-- Формат: - ⚠️ описание проблемы -->
