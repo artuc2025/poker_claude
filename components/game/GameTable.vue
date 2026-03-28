@@ -21,16 +21,16 @@ const gameStore = useGameStore();
 // Positions computed on the table ellipse (900×540px) at 40° increments,
 // k=0.88 inset. Perfectly symmetric left↔right.
 const SEAT_POSITIONS: readonly [number, number][] = [
-  [12, 28],  // 0: upper-left
-  [35,  9],  // 1: top-left
-  [65,  9],  // 2: top-right
-  [88, 28],  // 3: upper-right
-  [93, 58],  // 4: right
-  [78, 84],  // 5: bottom-right
-  [50, 94],  // 6: bottom center — HERO
-  [22, 84],  // 7: bottom-left
-  [ 7, 58],  // 8: left
-]
+  [12, 28], // 0: upper-left
+  [35, 9], // 1: top-left
+  [65, 9], // 2: top-right
+  [88, 28], // 3: upper-right
+  [93, 58], // 4: right
+  [78, 84], // 5: bottom-right
+  [50, 94], // 6: bottom center — HERO
+  [22, 84], // 7: bottom-left
+  [7, 58], // 8: left
+];
 
 const PLAYER_NAME_MAP: Record<string, string> = Object.fromEntries(
   [MOCK_HERO, ...MOCK_PLAYERS].map((p) => [p.id, p.name]),
@@ -114,47 +114,54 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="game-table">
-    <div class="game-table__rail">
-      <div class="game-table__felt">
-        <div class="game-table__center">
-          <CommunityCards />
-          <PotDisplay />
+  <div class="game-table-wrap">
+    <div class="game-table">
+      <div class="game-table__rail">
+        <div class="game-table__felt">
+          <div class="game-table__center">
+            <CommunityCards />
+            <PotDisplay />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div
-      v-for="(pos, index) in SEAT_POSITIONS"
-      :key="index"
-      :style="{ left: `${pos[0]}%`, top: `${pos[1]}%` }"
-      class="game-table__seat-pos"
-    >
-      <PlayerSeat
-        :seat="gameStore.seats[index] ?? null"
-        :seat-index="index"
-        :player-name="
-          gameStore.seats[index] ? getSeatName(gameStore.seats[index]!) : ''
-        "
-        :is-active="gameStore.currentSeatIndex === index"
+      <div
+        v-for="(pos, index) in SEAT_POSITIONS"
+        :key="index"
+        :style="{ left: `${pos[0]}%`, top: `${pos[1]}%` }"
+        class="game-table__seat-pos"
+      >
+        <PlayerSeat
+          :seat="gameStore.seats[index] ?? null"
+          :seat-index="index"
+          :player-name="
+            gameStore.seats[index] ? getSeatName(gameStore.seats[index]!) : ''
+          "
+          :is-active="gameStore.currentSeatIndex === index"
+        />
+      </div>
+
+      <DealerButton
+        v-if="gameStore.dealerSeatIndex >= 0"
+        :seat-index="gameStore.dealerSeatIndex"
+        :seat-positions="SEAT_POSITIONS"
       />
     </div>
 
-    <DealerButton
-      v-if="gameStore.dealerSeatIndex >= 0"
-      :seat-index="gameStore.dealerSeatIndex"
-      :seat-positions="SEAT_POSITIONS"
-    />
-
     <Transition name="action-panel">
-      <div v-if="isHeroTurn" class="game-table__action-panel">
-        <ActionPanel @action="onHeroAction" />
-      </div>
+      <ActionPanel v-if="isHeroTurn" @action="onHeroAction" />
     </Transition>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.game-table-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+}
+
 .game-table {
   position: relative;
   width: $table-width;
@@ -207,29 +214,25 @@ onMounted(() => {
     transform: translate(-50%, -50%);
     z-index: $z-index-raised;
   }
-
-  &__action-panel {
-    position: absolute;
-    bottom: -88px; // sits below the table ellipse
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: $z-index-overlay;
-  }
 }
 
 // Slide-up transition for ActionPanel
 .action-panel-enter-active {
-  transition: opacity 220ms ease, transform 220ms $transition-spring;
+  transition:
+    opacity 220ms ease,
+    transform 220ms $transition-spring;
 }
 .action-panel-leave-active {
-  transition: opacity 150ms ease, transform 150ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
 }
 .action-panel-enter-from {
   opacity: 0;
-  transform: translateX(-50%) translateY(16px);
+  transform: translateY(16px);
 }
 .action-panel-leave-to {
   opacity: 0;
-  transform: translateX(-50%) translateY(8px);
+  transform: translateY(8px);
 }
 </style>

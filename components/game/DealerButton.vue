@@ -4,39 +4,37 @@
 // seat changes between rounds.
 
 const props = defineProps<{
-  seatIndex: number
+  seatIndex: number;
   // Same [left%, top%] array that GameTable uses for seat anchors
-  seatPositions: readonly [number, number][]
-}>()
+  seatPositions: readonly [number, number][];
+}>();
 
 // Table dimensions must match $table-width / $table-height in _variables.scss.
 // We convert %-based seat anchors to pixel values so we can animate only via
 // `transform` (GPU-composited, no layout reflow) instead of `left`/`top`.
-const TABLE_W = 900
-const TABLE_H = 540
-const INWARD  = 0.12 // pull 12 % toward center so button sits on the felt
+const TABLE_W = 900;
+const TABLE_H = 540;
+const INWARD = 0.22; // pull 22 % toward center so button sits on the felt, not on the seat card
 
 const style = computed(() => {
-  const pos = props.seatPositions[props.seatIndex]
-  if (!pos) return {}
+  const pos = props.seatPositions[props.seatIndex];
+  if (!pos) return {};
 
-  const [l, t] = pos
-  const leftPct = l + (50 - l) * INWARD
-  const topPct  = t + (50 - t) * INWARD
+  const [l, t] = pos;
+  const leftPct = l + (50 - l) * INWARD;
+  const topPct = t + (50 - t) * INWARD;
 
   // Pixel offset from table origin; -50% centres the element on the anchor.
-  const x = (leftPct / 100) * TABLE_W
-  const y = (topPct  / 100) * TABLE_H
+  const x = (leftPct / 100) * TABLE_W;
+  const y = (topPct / 100) * TABLE_H;
 
-  return { transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))` }
-})
+  return { transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))` };
+});
 </script>
 
 <template>
   <Transition name="dealer-appear">
-    <div class="dealer-button" :style="style">
-      D
-    </div>
+    <div class="dealer-button" :style="style">D</div>
   </Transition>
 </template>
 
@@ -45,8 +43,8 @@ const style = computed(() => {
   position: absolute;
   left: 0;
   top: 0;
-  // transform is set via inline style — transition here is GPU-composited,
-  // no layout reflow unlike transitioning left/top.
+  // transform is set via inline style — GPU-composited, no layout reflow.
+  // Single transition declaration to avoid override issues.
   transition: transform $transition-slow;
   will-change: transform;
   z-index: $z-index-raised;
@@ -55,7 +53,12 @@ const style = computed(() => {
   height: 28px;
   border-radius: $radius-full;
 
-  background: radial-gradient(circle at 38% 35%, #fff9e0, $color-accent-gold 55%, $color-accent-gold-dim);
+  background: radial-gradient(
+    circle at 38% 35%,
+    #fff9e0,
+    $color-accent-gold 55%,
+    $color-accent-gold-dim
+  );
   border: 2px solid rgba(255, 255, 255, 0.55);
   box-shadow:
     0 2px 6px rgba(0, 0, 0, 0.55),
@@ -68,11 +71,6 @@ const style = computed(() => {
   letter-spacing: 0.02em;
 
   @include flex-center;
-
-  // Smooth glide between seats
-  transition:
-    left  $transition-slow,
-    top   $transition-slow;
 }
 
 // Subtle pop-in on first render / seat change
@@ -80,10 +78,14 @@ const style = computed(() => {
 // We compose scale on top of it via a CSS variable so the Transition only
 // adds/removes a scale modifier without clobbering the position transform.
 .dealer-appear-enter-active {
-  transition: opacity 200ms ease, scale 200ms $transition-spring;
+  transition:
+    opacity 200ms ease,
+    scale 200ms $transition-spring;
 }
 .dealer-appear-leave-active {
-  transition: opacity 150ms ease, scale 150ms ease;
+  transition:
+    opacity 150ms ease,
+    scale 150ms ease;
 }
 .dealer-appear-enter-from {
   opacity: 0;
